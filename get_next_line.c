@@ -12,36 +12,36 @@
 
 #include "fillit.h"
 
-int		ft_afterline(char **s, char **line, int fd, int i)
+int		ft_afterline(char *s, char **line, int fd, int i)
 {
 	char	*tmp;
 	int		len;
 
 	len = 0;
-	while (s[fd][len] != '\n' && s[fd][len])
+	while (s[len] != '\n' && s[len])
 		len++;
-	if (s[fd][len] == '\n')
+	if (s[len] == '\n')
 	{
-		*line = ft_strsub(s[fd], 0, len);
-		tmp = ft_strdup(s[fd] + len + 1);
-		free(s[fd]);
-		s[fd] = tmp;
-		if (s[fd][0] == '\0')
-			ft_strdel(&s[fd]);
+		*line = ft_strsub(s, 0, len);
+		tmp = ft_strdup(s + len + 1);
+		free(s);
+		s = tmp;
+		if (s[0] == '\0')
+			ft_strdel(&s);
 	}
-	else if (s[fd][len] == '\0')
+	else if (s[len] == '\0')
 	{
 		if (i == BUFF_SIZE)
 			return (get_next_line(fd, line));
-		*line = ft_strdup(s[fd]);
-		ft_strdel(&s[fd]);
+		*line = ft_strdup(s);
+		ft_strdel(&s);
 	}
 	return (1);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	static char		*str[MAX_FD];
+	static char		*str;
 	char			*tmp;
 	char			buf[BUFF_SIZE + 1];
 	int				i;
@@ -51,17 +51,17 @@ int		get_next_line(const int fd, char **line)
 	while (((i = read(fd, buf, BUFF_SIZE)) > 0))
 	{
 		buf[i] = '\0';
-		if (!str[fd])
-			str[fd] = ft_strnew(0);
-		tmp = ft_strjoin(str[fd], buf);
-		free(str[fd]);
-		str[fd] = tmp;
+		if (!str)
+			str = ft_strnew(0);
+		tmp = ft_strjoin(str, buf);
+		free(str);
+		str = tmp;
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
 	if (i < 0)
 		return (-1);
-	else if (i == 0 && (!str[fd] || !str[fd][0]))
+	else if (i == 0 && (!str || !str[0]))
 		return (0);
 	return (ft_afterline(str, line, fd, i));
 }

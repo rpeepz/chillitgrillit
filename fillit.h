@@ -13,7 +13,6 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 # define BUFF_SIZE 21
-# define MAX_FD 4096
 # define ERR_MAC(X, Y) if(X) {free(Y); return (1);}
 
 # include "libft/includes/libft.h"
