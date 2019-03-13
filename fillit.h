@@ -13,14 +13,17 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 # define BUFF_SIZE 21
-# define ERR_MAC(X, Y) if(X) {free(Y); return (1);}
+# define ERR_MAC(X) if(ft_error(X)) {return (1);}
+# define ERR_SW 1
 
 # include "libft/includes/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 
-int		get_next_line(const int fd, char **line);
-int     check_next_line(char *line, size_t n);
+unsigned char	ft_error(unsigned int err_num);
+unsigned int	check_next_tetra(int fd, char *line);
+int				get_next_line(const int fd, char **line);
+unsigned int	check_next_line(char *line, size_t nline, size_t *apounds);
 
 #endif
