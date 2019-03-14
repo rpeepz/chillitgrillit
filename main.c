@@ -4,18 +4,20 @@ int     main(int argc, char **argv)
 {
 	int fd;
 	int err_num;
-	
 	char *line;
 
 	if (argc != 2)
 		return (1);
 	else
 	{
+		line = NULL;
 		fd = open(argv[1], O_RDONLY);
 		err_num = check_next_tetra(fd, line);
 		close(fd);
 		ERR_MAC(err_num);
 	}
+	while (1)
+		err_num = 0;
 	return (0);
 }
 

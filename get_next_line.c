@@ -6,42 +6,59 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:10:19 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/02/27 18:10:21 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/13 23:23:35 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		ft_afterline(char *s, char **line, int fd, int i)
+int		ft_afterline(char **s, char **line, int fd, int i)
 {
 	char	*tmp;
 	int		len;
 
 	len = 0;
-	while (s[len] != '\n' && s[len])
+	while (s[0][len] != '\n' && s[0][len])
 		len++;
-	if (s[len] == '\n')
+	if (s[0][len] == '\n')
 	{
-		*line = ft_strsub(s, 0, len);
-		tmp = ft_strdup(s + len + 1);
-		free(s);
-		s = tmp;
+		if (line)
+		{
+			free (*line);
+			*line = NULL;
+		}
+		if (s[0][len + 1] == '\n')
+		{
+			*line = ft_strsub(s[0], 0, len);
+			tmp = ft_strdup(s[0] + len + 2);
+		}
+		else
+		{
+			*line = ft_strsub(s[0], 0, len);
+			tmp = ft_strdup(s[0] + len + 1);
+		}
+//		free(s[0]);
+//		s[0] = NULL;
+		s[0] = tmp;
 		if (s[0] == '\0')
-			ft_strdel(&s);
+			ft_strdel(&s[0]);
 	}
-	else if (s[len] == '\0')
+	else if (s[0][len] == '\0')
 	{
-		if (i == BUFF_SIZE)
-			return (get_next_line(fd, line));
-		*line = ft_strdup(s);
-		ft_strdel(&s);
+//		if (i == BUFF_SIZE)
+//			return (get_next_line(fd, line));
+		free (*line);
+		*line = ft_strdup(s[0]);
+		ft_strdel(&s[0]);
 	}
+//	free(tmp);
+//	tmp = NULL;
 	return (1);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	static char		*str;
+	static char		*str[1];
 	char			*tmp;
 	char			buf[BUFF_SIZE + 1];
 	int				i;
@@ -51,17 +68,17 @@ int		get_next_line(const int fd, char **line)
 	while (((i = read(fd, buf, BUFF_SIZE)) > 0))
 	{
 		buf[i] = '\0';
-		if (!str)
-			str = ft_strnew(0);
-		tmp = ft_strjoin(str, buf);
-		free(str);
-		str = tmp;
+		if (!str[0])
+			str[0] = ft_strnew(0);
+		tmp = ft_strjoin(str[0], buf);
+		free(str[0]);
+		str[0] = tmp;
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
 	if (i < 0)
 		return (-1);
-	else if (i == 0 && (!str || !str[0]))
+	else if (i == 0 && (!str[0] || !str[0][0]))
 		return (0);
 	return (ft_afterline(str, line, fd, i));
 }

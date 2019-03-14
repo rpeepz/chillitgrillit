@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:58:03 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/11 19:58:05 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/13 23:31:25 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ unsigned int 	check_next_tetra(int fd, char *line)
 	if (fd < 3)
 		return (2);
 	nline = 0;
-	while((ret = get_next_line(fd, &line)) > 0 && ++nline < 6)
+	pounds = 0;
+	while((ret = get_next_line(fd, &line)) > 0 && ++nline < 5)
 	{
 		if ((err_num = check_next_line(line, nline, &pounds)) > 0)
 			return (err_num);
