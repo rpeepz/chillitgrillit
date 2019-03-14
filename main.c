@@ -16,8 +16,8 @@ int     main(int argc, char **argv)
 		close(fd);
 		ERR_MAC(err_num);
 	}
-	while (1)
-		err_num = 0;
+//	while (1)
+//		err_num = 0;
 	return (0);
 }
 

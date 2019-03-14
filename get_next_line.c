@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:10:19 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/13 23:23:35 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/14 16:07:01 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,10 @@ int		ft_afterline(char **s, char **line, int fd, int i)
 			free (*line);
 			*line = NULL;
 		}
-		if (s[0][len + 1] == '\n')
-		{
-			*line = ft_strsub(s[0], 0, len);
-			tmp = ft_strdup(s[0] + len + 2);
-		}
-		else
-		{
-			*line = ft_strsub(s[0], 0, len);
-			tmp = ft_strdup(s[0] + len + 1);
-		}
-//		free(s[0]);
-//		s[0] = NULL;
+		*line = ft_strsub(s[0], 0, len);
+		tmp = ft_strdup(s[0] + len + 1);
+		free(s[0]);
+		s[0] = NULL;
 		s[0] = tmp;
 		if (s[0] == '\0')
 			ft_strdel(&s[0]);
