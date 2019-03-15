@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-unsigned int 	check_next_tetra(int fd, char *line)
+unsigned int 	check_next_tetra(int fd, char **tetra)
 {
 	size_t			nline;
 	unsigned int	err_num;
@@ -25,9 +25,9 @@ unsigned int 	check_next_tetra(int fd, char *line)
 	pounds = 0;
 	while(++nline < 6)
 	{
-		if ((ret = get_next_line(fd, &line)) < 1)
+		if ((ret = get_next_line(fd, &tetra[nline - 1])) < 1)
 			break ;
-		if ((err_num = check_next_line(line, nline, &pounds)) > 0)
+		if ((err_num = check_next_line(tetra[nline - 1], nline, &pounds)) > 0)
 			return (err_num);
 	}
 	if (ret == -1)

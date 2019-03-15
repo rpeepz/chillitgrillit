@@ -22,7 +22,7 @@
 # include <fcntl.h>
 
 unsigned char	ft_error(unsigned int err_num);
-unsigned int	check_next_tetra(int fd, char *line);
+unsigned int	check_next_tetra(int fd, char **tetra);
 int				get_next_line(const int fd, char **line);
 unsigned int	check_next_line(char *line, size_t nline, size_t *apounds);
 

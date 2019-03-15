@@ -4,23 +4,27 @@ int     main(int argc, char **argv)
 {
 	int fd;
 	int err_num;
-	char *line;
+	char *tetra[5];
 
 	if (argc != 2)
 		return (1);
 	else
 	{
-		line = NULL;
+		tetra[0] = NULL;
+		tetra[1] = NULL;
+		tetra[2] = NULL;
+		tetra[3] = NULL;
+		tetra[4] = NULL;
 		fd = open(argv[1], O_RDONLY);
-		while (!(err_num = check_next_tetra(fd, line)))
+		while (!(err_num = check_next_tetra(fd, tetra)))
 			;
-		free(line);
+//		free(*tetra);
 		close(fd);
 		if (err_num != -1)
 			ERR_MAC(err_num);
 	}
-	while (1)
-		err_num = 0;
+//	while (1)
+//		err_num = 0;
 	return (0);
 }
 
