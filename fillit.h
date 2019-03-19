@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:57:53 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/14 17:11:26 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/18 22:53:20 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,22 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-unsigned char	ft_error(unsigned int err_num);
-unsigned int	check_next_tetra(int fd, char **tetra);
-int				get_next_line(const int fd, char **line);
-unsigned int	check_next_line(char *line, size_t nline, size_t *apounds);
+typedef struct		s_tetra
+{
+	int				*block1;
+	int				*block2;
+	int				*block3;
+	char			letter_id;
+	struct s_tetra	*next;
+}					t_tetra;
+
+void 					*convertit(t_tetra *tetramino, char **tetra);
+void					*ft_tetadd(t_tetra **tet_arr, t_tetra *new);
+t_tetra				*ft_newtetra(char **tetra);
+unsigned char		ft_error(unsigned int err_num);
+unsigned int		checkit(int fd, char **tetra);
+int					get_next_line(const int fd, char **line);
+int					ft_afterline(char **s, char **line, int fd, int i);
+unsigned int		check_next_line(char *line, size_t nline, size_t *apounds);
 
 #endif

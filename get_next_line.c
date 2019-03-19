@@ -12,6 +12,32 @@
 
 #include "fillit.h"
 
+int		get_next_line(const int fd, char **line)
+{
+	static char		*str[1];
+	char			*tmp;
+	char			buf[BUFF_SIZE + 1];
+	int				i;
+
+	if (fd < 0 || line == NULL || BUFF_SIZE == 0)
+		return (-1);
+	while (((i = read(fd, buf, BUFF_SIZE)) > 0))
+	{
+		buf[i] = '\0';
+		if (!str[0])
+			str[0] = ft_strnew(0);
+		tmp = ft_strjoin(str[0], buf);
+		free(str[0]);
+		str[0] = tmp;
+		if (ft_strchr(buf, '\n'))
+			break ;
+	}
+	if (i < 0)
+		return (-1);
+	else if (i == 0 && (!str[0] || !str[0][0]))
+		return (0);
+	return (ft_afterline(str, line, fd, i));
+}
 int		ft_afterline(char **s, char **line, int fd, int i)
 {
 	char	*tmp;
@@ -46,31 +72,4 @@ int		ft_afterline(char **s, char **line, int fd, int i)
 //	free(tmp);
 //	tmp = NULL;
 	return (1);
-}
-
-int		get_next_line(const int fd, char **line)
-{
-	static char		*str[1];
-	char			*tmp;
-	char			buf[BUFF_SIZE + 1];
-	int				i;
-
-	if (fd < 0 || line == NULL || BUFF_SIZE == 0)
-		return (-1);
-	while (((i = read(fd, buf, BUFF_SIZE)) > 0))
-	{
-		buf[i] = '\0';
-		if (!str[0])
-			str[0] = ft_strnew(0);
-		tmp = ft_strjoin(str[0], buf);
-		free(str[0]);
-		str[0] = tmp;
-		if (ft_strchr(buf, '\n'))
-			break ;
-	}
-	if (i < 0)
-		return (-1);
-	else if (i == 0 && (!str[0] || !str[0][0]))
-		return (0);
-	return (ft_afterline(str, line, fd, i));
 }
