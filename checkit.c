@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_next_line.c                                  :+:      :+:    :+:   */
+/*   checkit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/11 19:58:03 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/14 18:14:52 by rpapagna         ###   ########.fr       */
+/*   Created: 2019/03/18 22:41:40 by rpapagna          #+#    #+#             */
+/*   Updated: 2019/03/18 22:41:44 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-unsigned int 	check_next_tetra(int fd, char **tetra)
+unsigned int	checkit(int fd, char **tetra) //new name :)
 {
 	size_t			nline;
 	unsigned int	err_num;
@@ -23,7 +23,7 @@ unsigned int 	check_next_tetra(int fd, char **tetra)
 		return (2);
 	nline = 0;
 	pounds = 0;
-	while(++nline < 6)
+	while (++nline < 6)
 	{
 		if ((ret = get_next_line(fd, &tetra[nline - 1])) < 1)
 			break ;
@@ -45,7 +45,7 @@ unsigned int	check_next_line(char *line, size_t nline, size_t *apounds)
 	if ((len = ft_strlen(line)) != 4)
 	{
 		if (nline == 5 && len == 0)
-				return (0);
+			return (0);
 		return (1);
 	}
 	i = 0;
