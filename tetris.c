@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 23:43:40 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/19 12:12:22 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/19 12:19:56 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    *convertit(t_tetra *tetramino, char **tetra)
 	y = 0;
 	found = 0;
 
-	while(y < 4){
+	while (y < 4){
 	   x = 0;
 		while(tetra[y][x] == '.')
 			x++;
@@ -33,22 +33,21 @@ void    *convertit(t_tetra *tetramino, char **tetra)
 			found = 1;
 			x++;
 		}
-		while (found && tetra[y][x]){
+		if (found && tetra[y][x]){
 			if (tetra[y][x] == '#' && found == '1'){
-				tetramino->block1 = {anc_x - x,y}; //convert x,y according to anchors x & y
+				tetramino->block1 = {y - anc_y, x - anc_x}; //convert x,y according to anchors x & y
 				found == '2';
 			}
-			if (tetra[y][x] == '#' && found == '2'){
-				tetramino->block2 = {x,y}; //store x,y to int arr element of struct
+			else if (tetra[y][x] == '#' && found == '2'){
+				tetramino->block2 = {y - anc_y, x - anc_x}; //store x,y to int arr element of struct
 				found == '3';
 			}
-			if (tetra[y][x] == '#' && found == '3'){
-				tetramino->block3 = {x,y}; //create indication of last block found
+			else if (tetra[y][x] == '#' && found == '3'){
+				tetramino->block3 = {y - anc_y, x - anc_x}; //create indication of last block found
 				found == '4';
-				break;
 			 }
 		 }
-	     if (found == '4')
+		if (found == '4')
 	        break ;
 	     y++;
 	}
