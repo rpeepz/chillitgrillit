@@ -19,6 +19,7 @@ int     main(int argc, char **argv)
 	size_t	sqsz;
 	char	letter_id;
 	char	*tetra[5];
+	char	**map;
 	t_tetra	*tet_arr;
 	if (argc != 2)
 		return (1);
@@ -34,10 +35,10 @@ int     main(int argc, char **argv)
 		while (!(err_num = checkit(fd, tetra)))
 		{
 			++letter_id;
-			// new funcs
 			if (!tet_arr){
-				if(!(tet_arr = ft_newtetra(tetra, letter_id))){
-					return (ft_error(5));	}}
+				if(!(tet_arr = ft_newtetra(tetra, letter_id)))
+					return (ft_error(5));
+			}
 			//else
 			//	tet_add(t_tetra **tet_arr, t_tetra *new)
 		}

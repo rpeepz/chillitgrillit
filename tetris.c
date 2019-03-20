@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-char			*convertit(t_tetra *tetramino, char **tetra)
+void			*convertit(t_tetra *tetramino, char **tetra)
 {
 	int		x;
 	int		y;
@@ -69,13 +69,6 @@ t_tetra			*ft_newtetra(char **tetra, char letter_id)
 
 	if (!(tetramino = (t_tetra *)malloc(sizeof(*tetramino))))
 		return (NULL);
-	if (!tetra)
-	{
-		tetramino->block1 = NULL;
-		tetramino->block2 = NULL;
-		tetramino->block3 = NULL;
-		tetramino->letter_id = 0;
-	}
 	else
 	{
 		if (!(tetramino->block1 = (int *)malloc(sizeof(int) * 3)))
@@ -128,4 +121,3 @@ static t_tetra  *delit(char *coordinates, char chr)
 	del->next = NULL;
 	return (del);
 }
-

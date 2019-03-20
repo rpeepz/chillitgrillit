@@ -66,7 +66,7 @@ char	*strcnew(size_t len, char c)
 	size_t	i;
 
 	if (len)
-		if (!(new = (char *)malloc((sizeof(char) * len))))
+		if (!(new = (char *)malloc(sizeof(char) * len)))
 			return (NULL);
 	i = -1;
 	while (++i < len)

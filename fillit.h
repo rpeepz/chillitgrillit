@@ -37,7 +37,7 @@ static t_tetra		*delit(char *oordinates, char chr);
 char				**mapinit(size_t sqsz);
 int					fitit(char ***amap, t_tetra *tetromino, size_t sqsz, char *order);
 int					printit(char **map, size_t sqsz);
-char				*convertit(t_tetra *tetromino, char **tetra);
+void				*convertit(t_tetra *tetromino, char **tetra);
 void				*ft_tetadd(t_tetra **tet_arr, t_tetra *new);
 t_tetra				*ft_newtetra(char **tetra, char letter_id);
 unsigned char		ft_error(unsigned int err_num);
