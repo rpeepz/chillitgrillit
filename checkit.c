@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-unsigned int	checkit(int fd, char **tetra) //new name :)
+unsigned int	checkit(int fd, char **tetra)
 {
 	size_t			nline;
 	unsigned int	err_num;
@@ -60,7 +60,7 @@ unsigned int	check_next_line(char *line, size_t nline, size_t *apounds)
 	return (0);
 }
 
-char	*strcnew(size_t len, char c)
+char			*strcnew(size_t len, char c)
 {
 	char	*new;
 	size_t	i;
