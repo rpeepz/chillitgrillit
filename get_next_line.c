@@ -36,9 +36,9 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	else if (i == 0 && (!str[0] || !str[0][0]))
 		return (0);
-	return (ft_afterline(str, line, fd, i));
+	return (ft_afterline(str, line));
 }
-int		ft_afterline(char **s, char **line, int fd, int i)
+int		ft_afterline(char **s, char **line)
 {
 	char	*tmp;
 	int		len;
@@ -63,13 +63,9 @@ int		ft_afterline(char **s, char **line, int fd, int i)
 	}
 	else if (s[0][len] == '\0')
 	{
-//		if (i == BUFF_SIZE)
-//			return (get_next_line(fd, line));
 		free (*line);
 		*line = ft_strdup(s[0]);
 		ft_strdel(&s[0]);
 	}
-//	free(tmp);
-//	tmp = NULL;
 	return (1);
 }
