@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:57:53 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/18 22:53:20 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/19 17:55:01 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define BUFF_SIZE 21
 # define ERR_MAC(X) if(ft_error(X)) {return (1);}
 # define ERR_SW 1
+# define DEBUG 1
+# define EMPTY_CHR '.'
 
 # include "libft/includes/libft.h"
 # include <unistd.h>
@@ -29,14 +31,19 @@ typedef struct		s_tetra
 	char			letter_id;
 	struct s_tetra	*next;
 }					t_tetra;
-
-void 					*convertit(t_tetra *tetramino, char **tetra);
-void					*ft_tetadd(t_tetra **tet_arr, t_tetra *new);
-t_tetra				*ft_newtetra(char **tetra);
+char				*strcnew(size_t len, char c);
+static int			signit(char **coordinate);
+static t_tetra		*delit(char *oordinates, char chr);
+char				**mapinit(size_t sqsz);
+int					fitit(char ***amap, t_tetra *tetromino, size_t sqsz, char *order);
+int					printit(char **map, size_t sqsz);
+char				*convertit(t_tetra *tetromino, char **tetra);
+void				*ft_tetadd(t_tetra **tet_arr, t_tetra *new);
+t_tetra				*ft_newtetra(char **tetra, char letter_id);
 unsigned char		ft_error(unsigned int err_num);
 unsigned int		checkit(int fd, char **tetra);
 int					get_next_line(const int fd, char **line);
-int					ft_afterline(char **s, char **line, int fd, int i);
+int					ft_afterline(char **s, char **line);
 unsigned int		check_next_line(char *line, size_t nline, size_t *apounds);
 
 #endif

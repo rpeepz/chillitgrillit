@@ -39,7 +39,7 @@ unsigned int	checkit(int fd, char **tetra) //new name :)
 
 unsigned int	check_next_line(char *line, size_t nline, size_t *apounds)
 {
-	int		i;
+	size_t	i;
 	size_t	len;
 
 	if ((len = ft_strlen(line)) != 4)
@@ -58,4 +58,19 @@ unsigned int	check_next_line(char *line, size_t nline, size_t *apounds)
 		i++;
 	}
 	return (0);
+}
+
+char	*strcnew(size_t len, char c)
+{
+	char	*new;
+	size_t	i;
+
+	if (len)
+		if (!(new = (char *)malloc((sizeof(char) * len))))
+			return (NULL);
+	i = -1;
+	while (++i < len)
+		new[i] = c;
+	new[i] = '\0';
+	return (new);
 }
