@@ -16,7 +16,7 @@ int     main(int argc, char **argv)
 		tetra[3] = NULL;
 		tetra[4] = NULL;
 		fd = open(argv[1], O_RDONLY);
-		while (!(err_num = check_next_tetra(fd, tetra)))
+		while (!(err_num = checkit(fd, tetra)))
 			;
 //		free(*tetra);
 		close(fd);
