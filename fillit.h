@@ -35,7 +35,8 @@ char				*strcnew(size_t len, char c);
 static int			signit(char **coordinate);
 static t_tetra		*delit(char *oordinates, char chr);
 char				**mapinit(size_t sqsz);
-int					fitit(char ***amap, t_tetra *tetromino, size_t sqsz, char *order);
+int					fitit(char ***amap, t_tetra *tetromino,\
+							size_t sqsz, char *order);
 int					printit(char **map, size_t sqsz);
 void				*convertit(t_tetra *tetromino, char **tetra);
 void				*ft_tetadd(t_tetra **tet_arr, t_tetra *new);
