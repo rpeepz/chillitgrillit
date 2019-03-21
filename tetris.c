@@ -87,6 +87,19 @@ t_tetra			*ft_newtetra(char **tetra, char letter_id)
 	return (tetramino);
 }
 
+t_tetra			*tet_init(char **tetra, char letter_id)
+{
+	t_tetra *tetnew;
+	
+	tetnew->block1 = 0;
+	tetnew->block2 = 0;
+	tetnew->block3 = 0;
+	tetnew->letter_id = 0;
+	tetnew->next = NULL;
+
+	return (tetnew);
+}
+
 static int  	signit(char **coordinate)
 {
 	int 	out;
@@ -103,23 +116,8 @@ static int  	signit(char **coordinate)
 	return (out);
 }
 
-/*
-static t_tetra  *delit(char *coordinates, char chr)
+void			tet_add(t_tetra **atet, t_tetra *new)
 {
-	t_tetra *del;
-
-	del = (t_tetra *)malloc(sizeof(t_tetra));
-	del->block1 = (int *)malloc(sizeof(int) * 2);
-	del->block1[0] = signit(&coordinates);
-	del->block1[1] = signit(&coordinates);
-	del->block2 = (int *)malloc(sizeof(int) * 2);
-	del->block2[0] = signit(&coordinates);
-	del->block2[1] = signit(&coordinates);
-	del->block3 = (int *)malloc(sizeof(int) * 2);
-	del->block3[0] = signit(&coordinates);
-	del->block3[1] = signit(&coordinates);
-	del->letter_id = chr;
-	del->next = NULL;
-	return (del);
+	new->next = *atet;
+	*atet = new;
 }
-*/
