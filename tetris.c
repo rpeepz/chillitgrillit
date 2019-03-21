@@ -71,13 +71,13 @@ t_tetra			*ft_newtetra(char **tetra, char letter_id)
 		return (NULL);
 	else
 	{
-		if (!(tetramino->block1 = (int *)malloc(sizeof(int) * 3)))
+		if (!(tetramino->block1 = (int *)malloc(sizeof(int) * 2)))
 			return (NULL);
-		if (!(tetramino->block2 = (int *)malloc(sizeof(int) * 3)))
+		if (!(tetramino->block2 = (int *)malloc(sizeof(int) * 2)))
 			return (NULL);
-		if (!(tetramino->block3 = (int *)malloc(sizeof(int) * 3)))
+		if (!(tetramino->block3 = (int *)malloc(sizeof(int) * 2)))
 			return (NULL);
-		if (!(tetramino->letter_id = (char)malloc(sizeof(char) * 2)))
+		if (!(tetramino->letter_id = (char)malloc(sizeof(char))))
 			return (NULL);
 		convertit(tetramino, tetra);
 		tetramino->letter_id = letter_id;
@@ -103,6 +103,7 @@ static int  	signit(char **coordinate)
 	return (out);
 }
 
+/*
 static t_tetra  *delit(char *coordinates, char chr)
 {
 	t_tetra *del;
@@ -121,3 +122,4 @@ static t_tetra  *delit(char *coordinates, char chr)
 	del->next = NULL;
 	return (del);
 }
+*/
