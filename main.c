@@ -36,10 +36,10 @@ int     main(int argc, char **argv)
 		while (!(err_num = checkit(fd, tetra))) //get and fill tetra
 		{
 			++letter_id;
-			if (tet_arr->letter_id != 0)
+			//if (tet_arr->letter_id != 0)
 				//tet_add(&tet_arr, tet_init(0, 0));
-				break ;
-			else
+				//break ;
+			//else
 				if(!(tet_arr = ft_newtetra(tetra, letter_id)))
 					return (ft_error(5));
 				
