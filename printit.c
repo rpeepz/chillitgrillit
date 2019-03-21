@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-char		**mapinit(size_t sqsz)
+char			**mapinit(size_t sqsz)
 {
 	char	**map;
 	size_t	i;
@@ -26,7 +26,7 @@ char		**mapinit(size_t sqsz)
 	return (map);
 }
 
-static int	dropit(char ***amap, int sqsz, int b[4][2], char chr)
+static int		dropit(char ***amap, int sqsz, int b[4][2], char chr)
 {
 	char	**map;
 
@@ -58,14 +58,14 @@ static t_tetra	*takeit(t_tetra *tetra_list, char id)
 	return (tetra_list);
 }
 
-int		fitit(char ***amap, t_tetra *tetromino, size_t sqsz, char *order)
+int				fitit(char ***amap, t_tetra *tet_arr, size_t sqsz, char *order)
 {
 	size_t	i;
 	t_tetra	*tetra_falling;
-	int	b[4][2];
+	int		b[4][2];
 
 	i = -1;
-	tetra_falling = takeit(tetromino, *order);
+	tetra_falling = takeit(tet_arr, *order);
 	while (++i < sqsz * sqsz)
 	{
 		b[0][0] = (int)(i / sqsz);
@@ -77,13 +77,13 @@ int		fitit(char ***amap, t_tetra *tetromino, size_t sqsz, char *order)
 		b[3][0] = b[0][0] + (tetra_falling->block3)[0];
 		b[3][1] = b[0][1] + (tetra_falling->block3)[1];
 		if (dropit(amap, (int)sqsz, b, tetra_falling->letter_id))
-			if (!(tetra_falling = takeit(tetromino, *(++order))))
+			if (!(tetra_falling = takeit(tet_arr, *(++order))))
 				return (0);
 	}
 	return (-1);
 }
 
-int		printit(char **map, size_t sqsz)
+int				printit(char **map, size_t sqsz)
 {
 	size_t	i;
 
