@@ -25,10 +25,12 @@ unsigned int	checkit(int fd, char **tetra)
 	pounds = 0;
 	while (++nline < 6)
 	{
-		if ((ret = get_next_line(fd, &tetra[nline - 1])) < 1)
+		if ((ret = get_next_line(fd, &tetra[nline - 1])) < 0)
 			break ;
 		if ((err_num = check_next_line(tetra[nline - 1], nline, &pounds)) > 0)
 			return (err_num);
+		if (!ret)
+			break;
 	}
 	if (ret == -1)
 		return (4);

@@ -39,9 +39,8 @@ int					fitit(char ***amap, t_tetra *tetromino,\
 							size_t sqsz, char *order);
 int					printit(char **map, size_t sqsz);
 void				*convertit(t_tetra *tetromino, char **tetra);
-void				tet_add(t_tetra **atet, t_tetra *new);
-t_tetra				*tet_init(char **tetra, char letter_id);
-t_tetra				*ft_newtetra(char **tetra, char letter_id);
+int					tet_append(t_tetra **head, t_tetra *new_tet);
+int					ft_newtetra(char **tetra, char letter_id, t_tetra **atet);
 unsigned char		ft_error(unsigned int err_num);
 unsigned int		checkit(int fd, char **tetra);
 int					get_next_line(const int fd, char **line);

@@ -21,7 +21,7 @@ char			**mapinit(size_t sqsz)
 		return (NULL);
 	i = -1;
 	while (++i < sqsz)
-		if (!(map[i] = strcnew(sqsz, '.')))
+		if (!(map[i] = ft_strcnew(sqsz, '.')))
 			return (NULL);
 	return (map);
 }

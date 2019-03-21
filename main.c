@@ -25,24 +25,27 @@ int     main(int argc, char **argv)
 		return (1);
 	else
 	{
+		err_num = 0;
 		tetra[0] = NULL;
 		tetra[1] = NULL;
 		tetra[2] = NULL;
 		tetra[3] = NULL;
 		tetra[4] = NULL;
 		letter_id = '@';
+		tet_arr = NULL;
 		fd = open(argv[1], O_RDONLY);
-		tet_arr = tet_init(0, 0);
-		while (!(err_num = checkit(fd, tetra))) //get and fill tetra
+		while (!err_num)
 		{
+			err_num = checkit(fd, tetra);
+			if (letter_id == 'Z')
+				letter_id = 'a';
 			++letter_id;
-			//if (tet_arr->letter_id != 0)
-				//tet_add(&tet_arr, tet_init(0, 0));
-				//break ;
-			//else
-				if(!(tet_arr = ft_newtetra(tetra, letter_id)))
+			if (err_num <= 0)
+			{
+				if(!(ft_newtetra(tetra, letter_id, &tet_arr)))
 					return (ft_error(5));
 				
+			}
 		}
 			//free(*tetra);
 		close(fd);
