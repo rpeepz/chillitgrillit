@@ -13,7 +13,7 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 # define BUFF_SIZE 21
-# define ERR_MAC(X) if(ft_error(X)) {return (1);}
+# define IF_EXIT(X, Y) if(X) {return (Y);}
 # define ERR_SW 1
 # define DEBUG 1
 # define EMPTY_CHR '.'
@@ -31,20 +31,20 @@ typedef struct		s_tetra
 	char			letter_id;
 	struct s_tetra	*next;
 }					t_tetra;
-char				*strcnew(size_t len, char c);
-static int			signit(char **coordinate);
-static t_tetra		*delit(char *oordinates, char chr);
-char				**mapinit(size_t sqsz);
-int					fitit(char ***amap, t_tetra *tetromino,\
-							size_t sqsz, char *order);
-int					printit(char **map, size_t sqsz);
-void				*convertit(t_tetra *tetromino, char **tetra);
-int					tet_append(t_tetra **head, t_tetra *new_tet);
-int					ft_newtetra(char **tetra, char letter_id, t_tetra **atet);
-unsigned char		ft_error(unsigned int err_num);
+
 unsigned int		checkit(int fd, char **tetra);
+unsigned int		check_next_line(char *line, size_t nline, size_t *apounds);
+unsigned char		ft_error(unsigned int err_num);
+void				*convertit(t_tetra *tetromino, char **tetra);
 int					get_next_line(const int fd, char **line);
 int					ft_afterline(char **s, char **line);
-unsigned int		check_next_line(char *line, size_t nline, size_t *apounds);
+int					ft_newtetra(char **tetra, char letter_id, t_tetra **atet);
+int					tet_append(t_tetra **head, t_tetra *new_tet);
+
+t_tetra				*takeit(t_tetra *tetra_list, char id);
+char				**mapinit(size_t sqsz, char ***amap);
+int					fitit(char ***amap, t_tetra *tetra, size_t sqsz);
+int					printit(char **map, size_t sqsz);
+int					solveit(t_tetra *tetra_list);
 
 #endif
