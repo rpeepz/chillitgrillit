@@ -19,8 +19,10 @@ char	*ft_strpop(char *str, size_t id)
 	char	*popped;
 
 	len = ft_strlen(str);
-	if (id < len && (popped = (char *)malloc(len * sizeof(char))))
+	if (id < len)
 	{
+		if (!(popped = (char *)malloc(len * sizeof(char))))
+			return (NULL);
 		i = -1;
 		while (++i < id)
 			popped[i] = str[i];
