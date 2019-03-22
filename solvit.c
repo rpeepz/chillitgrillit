@@ -27,19 +27,6 @@ void	freeit(char ***amap, size_t sqsz)
 	}
 }
 
-void	freelit(t_tetra *tetra)
-{
-	if (tetra)
-	{
-		freelit(tetra->next);
-		free(tetra->block1);
-		free(tetra->block2);
-		free(tetra->block3);
-		//free((&tetra->letter_id));
-	}
-	free(tetra);
-}
-
 static char	*controlit(t_tetra *tetras)
 {
 	char	*chr_ids;
