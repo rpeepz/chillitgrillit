@@ -66,21 +66,13 @@ int			ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
 {
 	t_tetra	*tetramino;
 
-	if (!(tetramino = (t_tetra *)malloc(sizeof(*tetramino))))
-		return (0);
-	else
-	{
-		if (!(tetramino->block1 = (int *)malloc(sizeof(int) * 2)))
-			return (0);
-		if (!(tetramino->block2 = (int *)malloc(sizeof(int) * 2)))
-			return (0);
-		if (!(tetramino->block3 = (int *)malloc(sizeof(int) * 2)))
-			return (0);
-		if (!(tetramino->letter_id = (char)malloc(sizeof(char))))
-			return (0);
-		convertit(tetramino, tetra);
-		tetramino->letter_id = letter_id;
-	}
+	IF_EXIT(!(tetramino = (t_tetra *)malloc(sizeof(*tetramino))), 0);
+	IF_EXIT(!(tetramino->block1 = (int *)malloc(sizeof(int) * 2)), 0);
+	IF_EXIT(!(tetramino->block2 = (int *)malloc(sizeof(int) * 2)), 0);
+	IF_EXIT(!(tetramino->block3 = (int *)malloc(sizeof(int) * 2)), 0);
+	IF_EXIT(!(tetramino->letter_id = (char)malloc(sizeof(char))), 0);
+	convertit(tetramino, tetra);
+	tetramino->letter_id = letter_id;
 	tetramino->next = NULL;
 	tet_append(atet, tetramino);
 	return (1);
@@ -88,13 +80,16 @@ int			ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
 
 int			tet_append(t_tetra **head, t_tetra *new)
 {
-	if (!(*head))
+	t_tetra	*ETK;
+
+	ETK = *head;
+	if (!ETK)
 		*head = new;
 	else
 	{
-		while ((*head)->next)
-			*head = (*head)->next;
-		(*head)->next = new;
+		while (ETK->next)
+			ETK = ETK->next;
+		ETK->next = new;
 	}
 	return (0);
 }
