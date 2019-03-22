@@ -47,6 +47,7 @@ FILES	= ft_atoi.c \
 			ft_strjoin.c \
 			ft_strtrim.c \
 			ft_strsplit.c \
+			ft_strpop.c \
 			ft_strcat.c \
 			ft_strdup.c \
 			ft_strndup.c \
@@ -82,7 +83,6 @@ OBJ		= $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-
 		ar rcs $(NAME) $(OBJ)
 
 clean:
