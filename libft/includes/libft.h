@@ -102,6 +102,7 @@ int					ft_isupper(int c);
 int					ft_intlen(int num);
 int					ft_countwords(char const *str, char c);
 int					ft_strchri(const char *s, int c);
+char				*ft_strpop(char *str, size_t id);
 
 
 #endif
