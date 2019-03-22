@@ -70,7 +70,6 @@ int			ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
 	IF_EXIT(!(tetramino->block1 = (int *)malloc(sizeof(int) * 2)), 0);
 	IF_EXIT(!(tetramino->block2 = (int *)malloc(sizeof(int) * 2)), 0);
 	IF_EXIT(!(tetramino->block3 = (int *)malloc(sizeof(int) * 2)), 0);
-	IF_EXIT(!(tetramino->letter_id = (char)malloc(sizeof(char))), 0);
 	convertit(tetramino, tetra);
 	tetramino->letter_id = letter_id;
 	tetramino->next = NULL;
