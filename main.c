@@ -41,7 +41,7 @@ int     main(int argc, char **argv)
 		{
 			err_num = checkit(fd, tetra);
 			if (letter_id == 'Z')
-				letter_id = 'a';
+				letter_id = '`';
 			++letter_id;
 			if (err_num <= 0)
 			{
@@ -56,8 +56,8 @@ int     main(int argc, char **argv)
 				return (1);
 		solveit(tet_arr);
 	}
-	while (1)
-		err_num = 1;
+//	while (1)
+//		err_num = 1;
 	return (0);
 }
 
