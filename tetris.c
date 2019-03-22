@@ -14,110 +14,87 @@
 
 void			*convertit(t_tetra *tetramino, char **tetra)
 {
-	int		x;
-	int		y;
+	int		i[2];
+	int		anc[2];
 	char	found;
-	int		anc_x;
-	int		anc_y;
 
-	y = 0;
+	i[0] = 0;
 	found = 0;
-	while (y < 4)
+	while (i[0] < 4)
 	{
-		x = 0;
-		while (tetra[y][x] == '.')
-			x++;
-		if (tetra[y][x] == '#' && found == '0')
+		i[1] = 0;
+		while (tetra[i[0]][i[1]] == '.')
+			(i[1])++;
+		if (tetra[i[0]][i[1]] == '#' && found == 0)
 		{
-			anc_x = x;
-			anc_y = y;
+			anc[0] = i[0];
+			anc[1] = i[1];
 			found = 1;
-			x++;
+			(i[1])++;
 		}
-		if (found && tetra[y][x])
+		while (found && tetra[i[0]][i[1]])
 		{
-			if (tetra[y][x] == '#' && found == '1')
+			if (tetra[i[0]][i[1]] == '#' && found == 1)
 			{
-				tetramino->block1[0] = y - anc_y;
-				tetramino->block1[1] = x - anc_x; //convert x,y according to anchors x & y
-				found = '2';
+				(tetramino->block1)[0] = i[0] - anc[0];
+				(tetramino->block1)[1] = i[1] - anc[1]; //convert x,y according to anchors x & y
+				found = 2;
 			}
-			else if (tetra[y][x] == '#' && found == '2')
+			else if (tetra[i[0]][i[1]] == '#' && found == 2)
 			{
-				tetramino->block2[0] = y - anc_y;
-				tetramino->block2[1] = x - anc_x; //store x,y to int arr element of struct
-				found = '3';
+				(tetramino->block2)[0] = i[0] - anc[0];
+				(tetramino->block2)[1] = i[1] - anc[1]; //store x,y to int arr element of struct
+				found = 3;
 			}
-			else if (tetra[y][x] == '#' && found == '3')
+			else if (tetra[i[0]][i[1]] == '#' && found == 3)
 			{
-				tetramino->block3[0] = y - anc_y;
-				tetramino->block3[1] = x - anc_x; //create indication of last block found
-				found = '4';
+				(tetramino->block3)[0] = i[0] - anc[0];
+				(tetramino->block3)[1] = i[1] - anc[1]; //create indication of last block found
+				found = 4;
 			}
+			(i[1])++;
 		}
-		if (found == '4')
+		if (found == 4)
 			break ;
-		y++;
+		(i[0])++;
 	}
 	tetramino->letter_id = tetra[4][0]; //set incrementation on each entrance
 	return (tetramino);
 }
 
-t_tetra			*ft_newtetra(char **tetra, char letter_id)
+int			ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
 {
 	t_tetra	*tetramino;
 
 	if (!(tetramino = (t_tetra *)malloc(sizeof(*tetramino))))
-		return (NULL);
+		return (0);
 	else
 	{
 		if (!(tetramino->block1 = (int *)malloc(sizeof(int) * 2)))
-			return (NULL);
+			return (0);
 		if (!(tetramino->block2 = (int *)malloc(sizeof(int) * 2)))
-			return (NULL);
+			return (0);
 		if (!(tetramino->block3 = (int *)malloc(sizeof(int) * 2)))
-			return (NULL);
+			return (0);
 		if (!(tetramino->letter_id = (char)malloc(sizeof(char))))
-			return (NULL);
+			return (0);
 		convertit(tetramino, tetra);
 		tetramino->letter_id = letter_id;
 	}
-	ft_putchar(tetramino->letter_id);
 	tetramino->next = NULL;
-	return (tetramino);
+	tet_append(atet, tetramino);
+	return (1);
 }
 
-t_tetra			*tet_init(char **tetra, char letter_id)
+int			tet_append(t_tetra **head, t_tetra *new)
 {
-	t_tetra *tetnew;
-	
-	tetnew->block1 = 0;
-	tetnew->block2 = 0;
-	tetnew->block3 = 0;
-	tetnew->letter_id = 0;
-	tetnew->next = NULL;
-
-	return (tetnew);
-}
-
-static int  	signit(char **coordinate)
-{
-	int 	out;
-	int 	sign;
-
-	sign = 1;
-	if (**coordinate == '-')
+	if (!(*head))
+		*head = new;
+	else
 	{
-		*coordinate += 1;
-		sign = -1;
+		while ((*head)->next)
+			*head = (*head)->next;
+		(*head)->next = new;
 	}
-	out = sign * (int)(**coordinate - '0');
-	*coordinate += 1;
-	return (out);
-}
-
-void			tet_add(t_tetra **atet, t_tetra *new)
-{
-	new->next = *atet;
-	*atet = new;
+	return (0);
 }
