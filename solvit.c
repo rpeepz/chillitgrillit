@@ -66,7 +66,10 @@ static int	technologic(char ***amap, t_tetra *tetras, size_t sqsz, char *chr_ids
 	IF_EXIT(!chr_ids, -1); /*Error, Memory shortage*/
 	map = NULL;
 	if (!(*chr_ids))
-		return (0); /*Success, No tetra remaining*/
+	{
+		free(chr_ids);
+		return (0);
+	} /*Success, No tetra remaining*/
 	i = 0;
 	while(chr_ids[i])
 	{
