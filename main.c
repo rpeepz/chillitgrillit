@@ -16,13 +16,16 @@ int     main(int argc, char **argv)
 {
 	int		fd;
 	int		err_num;
-	size_t	sqsz;
 	char	letter_id;
 	char	*tetra[5];
-	char	**map;
 	t_tetra	*tet_arr;
+
 	if (argc != 2)
-		return (1);
+		{
+			ft_putendl("usage: u idiot");//proper usage
+			ft_putendl("       ....");
+			return (1);
+		}
 	else
 	{
 		err_num = 0;
@@ -47,16 +50,14 @@ int     main(int argc, char **argv)
 				
 			}
 		}
-			//free(*tetra);
 		close(fd);
-//		ft_putchar(tetra[3][1]);
-//		ft_putchar(tet_arr->letter_id);
-//	printf("%c",tet_arr->letter_id); // test print
 		if (err_num != -1)
-			ERR_MAC(err_num);
+			if (ft_error(err_num))
+				return (1);
+		solveit(tet_arr);
 	}
-	//while (1)
-	//err_num = 0;
+	while (1)
+		err_num = 1;
 	return (0);
 }
 
@@ -70,7 +71,7 @@ unsigned char	ft_error(unsigned int err_num)
 	err_msgs[1] = ": invalid file descriptor";
 	err_msgs[2] = ": invalid input format";
 	err_msgs[3] = ": get_next_line failed";
-	err_msgs[4] = ": malloc error"; //new error msg
+	err_msgs[4] = ": malloc error";
 	ft_putstr("error");
 	if (ERR_SW)
 		ft_putstr(err_msgs[err_num - 1]);
