@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+
 typedef struct		s_tetra
 {
 	int				*block1;
@@ -31,9 +32,11 @@ typedef struct		s_tetra
 	struct s_tetra	*next;
 }					t_tetra;
 
+void				initit(char **tetra, int *err_num,
+						char *letter_id, t_tetra **tet_arr);
 unsigned int		checkit(int fd, char **tetra);
-unsigned int		check_next_line(char *line, size_t nline, size_t *apounds);
 unsigned char		ft_error(unsigned int err_num);
+unsigned int		check_next_line(char *line, size_t nline, size_t *apounds);
 void				*convertit(t_tetra *tetromino, char **tetra);
 int					get_next_line(const int fd, char **line);
 int					ft_afterline(char **s, char **line);
