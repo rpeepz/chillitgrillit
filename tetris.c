@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-void			*convertit(t_tetra *tetramino, char **tetra)
+void		*convertit(t_tetra *tetramino, char **tetra)
 {
 	int		i[2];
 	int		anc[2];
@@ -37,19 +37,19 @@ void			*convertit(t_tetra *tetramino, char **tetra)
 			if (tetra[i[0]][i[1]] == '#' && found == 1)
 			{
 				(tetramino->block1)[0] = i[0] - anc[0];
-				(tetramino->block1)[1] = i[1] - anc[1]; //convert x,y according to anchors x & y
+				(tetramino->block1)[1] = i[1] - anc[1];
 				found = 2;
 			}
 			else if (tetra[i[0]][i[1]] == '#' && found == 2)
 			{
 				(tetramino->block2)[0] = i[0] - anc[0];
-				(tetramino->block2)[1] = i[1] - anc[1]; //store x,y to int arr element of struct
+				(tetramino->block2)[1] = i[1] - anc[1];
 				found = 3;
 			}
 			else if (tetra[i[0]][i[1]] == '#' && found == 3)
 			{
 				(tetramino->block3)[0] = i[0] - anc[0];
-				(tetramino->block3)[1] = i[1] - anc[1]; //create indication of last block found
+				(tetramino->block3)[1] = i[1] - anc[1];
 				found = 4;
 			}
 			(i[1])++;
@@ -58,7 +58,7 @@ void			*convertit(t_tetra *tetramino, char **tetra)
 			break ;
 		(i[0])++;
 	}
-	tetramino->letter_id = tetra[4][0]; //set incrementation on each entrance
+	tetramino->letter_id = tetra[4][0];
 	return (tetramino);
 }
 
@@ -79,16 +79,16 @@ int			ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
 
 int			tet_append(t_tetra **head, t_tetra *new)
 {
-	t_tetra	*ETK;
+	t_tetra	*etk;
 
-	ETK = *head;
-	if (!ETK)
+	etk = *head;
+	if (!etk)
 		*head = new;
 	else
 	{
-		while (ETK->next)
-			ETK = ETK->next;
-		ETK->next = new;
+		while (etk->next)
+			etk = etk->next;
+		etk->next = new;
 	}
 	return (0);
 }

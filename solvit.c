@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solveit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmbomeyo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 16:20:69 by jmbomeyo          #+#    #+#             */
+/*   Updated: 2019/03/21 18:00:44 by rpapagna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 static size_t	lenit(t_tetra *tetra_list)
@@ -10,7 +22,7 @@ static size_t	lenit(t_tetra *tetra_list)
 	return (len);
 }
 
-void	freeit(char ***amap, size_t sqsz)
+void			freeit(char ***amap, size_t sqsz)
 {
 	size_t	i;
 
@@ -27,7 +39,7 @@ void	freeit(char ***amap, size_t sqsz)
 	}
 }
 
-static char	*controlit(t_tetra *tetras)
+static char		*controlit(t_tetra *tetras)
 {
 	char	*chr_ids;
 	size_t	c;
@@ -45,24 +57,25 @@ static char	*controlit(t_tetra *tetras)
 	return (chr_ids);
 }
 
-static int	technologic(char ***amap, t_tetra *tetras, size_t sqsz, char *chr_ids)
+static int		technologic(char ***amap,
+						t_tetra *tetras, size_t sqsz, char *chr_ids)
 {
 	char	**map;
 	size_t	i;
 
-	IF_EXIT(!chr_ids, -1); /*Error, Memory shortage*/
+	IF_EXIT(!chr_ids, -1);
 	map = NULL;
 	if (!(*chr_ids))
 	{
 		free(chr_ids);
 		return (0);
-	} /*Success, No tetra remaining*/
+	}
 	i = 0;
-	while(chr_ids[i])
+	while (chr_ids[i])
 	{
 		if (map)
 			freeit(&map, sqsz);
-		IF_EXIT(!(map = mapinit(sqsz, amap)), -1); /*Error, Memory shortage*/
+		IF_EXIT(!(map = mapinit(sqsz, amap)), -1);
 		if (!fitit(&map, takeit(tetras, chr_ids[i]), sqsz))
 		{
 			if (!technologic(&map, tetras, sqsz, ft_strpop(chr_ids, i)))
@@ -70,17 +83,17 @@ static int	technologic(char ***amap, t_tetra *tetras, size_t sqsz, char *chr_ids
 				free(chr_ids);
 				freeit(amap, sqsz);
 				*amap = map;
-				return (0); /*Success, Path fits*/
+				return (0);
 			}
 		}
 		i++;
 	}
 	free(chr_ids);
 	freeit(&map, sqsz);
-	return (1); /*Failure, No paths left*/
+	return (1);
 }
 
-int		solveit(t_tetra *tetra_list)
+int				solveit(t_tetra *tetra_list)
 {
 	size_t	i;
 	size_t	block_count;
@@ -95,6 +108,5 @@ int		solveit(t_tetra *tetra_list)
 		i++;
 	printit(map, i);
 	freeit(&map, i);
-	//freelit(tetra_list);
 	return (0);
 }
