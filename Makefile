@@ -6,7 +6,7 @@
 #    By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/22 16:00:21 by rpapagna          #+#    #+#              #
-#    Updated: 2019/03/22 16:49:48 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/03/22 17:13:05 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS	= main.c \
 		  get_next_line.c \
 		  tetris.c \
 		  solvit.c \
-		  printit.c
+		  printit.c \
+		  initit.c
 FILES_O	= $(SRCS:%.c=%.o)
 
 #COLOR OUTPUT OPIONS
