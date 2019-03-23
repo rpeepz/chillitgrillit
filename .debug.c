@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#undef ERR_SW
+#define ERR_SW 1
 
 int				main(int argc, char **argv)
 {
@@ -38,6 +40,8 @@ int				main(int argc, char **argv)
 		if (ft_error(err_num))
 			return (1);
 	solveit(tet_arr);
+    while (1)
+        err_num = 1;
 	return (0);
 }
 
