@@ -14,8 +14,8 @@
 # define FILLIT_H
 # define BUFF_SIZE 21
 # define IF_EXIT(X, Y) if(X) {return (Y);}
-# define ERR_SW 1
-# define DEBUG 1
+# define ERR_SW 0
+# define DEBUG 0
 # define EMPTY_CHR '.'
 
 # include "libft/includes/libft.h"
@@ -31,7 +31,6 @@ typedef struct		s_tetra
 	char			letter_id;
 	struct s_tetra	*next;
 }					t_tetra;
-
 void				initit(char **tetra, int *err_num,
 						char *letter_id, t_tetra **tet_arr);
 unsigned int		checkit(int fd, char **tetra);
