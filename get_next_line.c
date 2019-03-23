@@ -38,6 +38,7 @@ int		get_next_line(const int fd, char **line)
 		return (0);
 	return (ft_afterline(str, line));
 }
+
 int		ft_afterline(char **s, char **line)
 {
 	char	*tmp;
@@ -50,23 +51,17 @@ int		ft_afterline(char **s, char **line)
 	{
 		if (line)
 		{
-			free (*line);
+			free(*line);
 			*line = NULL;
 		}
 		*line = ft_strsub(s[0], 0, len);
-//		if (s[0][len] == '\n' && s[0][len + 1] == '\n')
-// 			tmp = ft_strdup(s[0] + len + 2);
-//		else
 		tmp = ft_strdup(s[0] + len + 1);
 		free(s[0]);
-//		s[0] = NULL;
 		s[0] = tmp;
-		if (s[0] == '\0')
-			ft_strdel(&s[0]);
 	}
 	else if (s[0][len] == '\0')
 	{
-		free (*line);
+		free(*line);
 		*line = ft_strdup(s[0]);
 		ft_strdel(&s[0]);
 	}

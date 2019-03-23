@@ -30,7 +30,7 @@ unsigned int	checkit(int fd, char **tetra)
 		if ((err_num = check_next_line(tetra[nline - 1], nline, &pounds)) > 0)
 			return (err_num);
 		if (!ret)
-			break;
+			break ;
 	}
 	if (ret == -1)
 		return (4);
