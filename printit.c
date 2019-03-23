@@ -6,7 +6,7 @@
 /*   By: jmbomeyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:20:69 by jmbomeyo          #+#    #+#             */
-/*   Updated: 2019/03/20 19:00:44 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/21 19:00:44 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ t_tetra		*takeit(t_tetra *tetra_list, char id)
 	return (tetra_list);
 }
 
-int		fitit(char ***amap, t_tetra *tetra, size_t sqsz)
+int			fitit(char ***amap, t_tetra *tetra, size_t sqsz)
 {
 	size_t	i;
-	int	b[4][2];
+	int		b[4][2];
 
 	i = -1;
 	while (++i < sqsz * sqsz)
@@ -84,7 +84,7 @@ int		fitit(char ***amap, t_tetra *tetra, size_t sqsz)
 	return (-1);
 }
 
-int		printit(char **map, size_t sqsz)
+int			printit(char **map, size_t sqsz)
 {
 	size_t	i;
 
