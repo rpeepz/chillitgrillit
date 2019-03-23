@@ -14,8 +14,9 @@ NAME	= fillit
 CFLAGS	= -Wall -Wextra -Werror
 DIR_H	= .
 INCL	= -I $(DIR_H) -L libft -lft
-SRCS	= main.c \
-		  checkit.c \
+MAIN	= main.c
+DEBUG	= .debug.c
+SRCS	= checkit.c \
 		  get_next_line.c \
 		  tetris.c \
 		  solvit.c \
@@ -33,7 +34,7 @@ all: $(NAME)
 
 $(NAME):
 		@echo "Building $(NAME) ..."
-		@gcc $(CFLAGS) $(SRCS) -o $(NAME) $(INCL)
+		@gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
 		@SLEEP .5
 		@echo "$(RED)Success!"
 		@SLEEP .5
@@ -53,4 +54,4 @@ re: fclean all
 
 debug:
 		@echo "$(YELLOW)creating $(NAME) for debug$(NC)"
-		@gcc -g $(CFLAGS) $(SRCS) -o $(NAME) $(INCL)
+		@gcc -g $(CFLAGS) $(DEBUG) $(SRCS) -o $(NAME) $(INCL)
