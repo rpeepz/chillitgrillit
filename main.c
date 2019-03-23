@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 22:53:26 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/19 18:56:23 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:07:16 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int				main(int argc, char **argv)
 		if (ft_error(err_num))
 			return (1);
 	solveit(tet_arr);
-	while (1)
-		err_num = 1;
 	return (0);
 }
 
