@@ -12,11 +12,34 @@
 
 #include "fillit.h"
 
+int				validit(char **t)
+{
+	int		i;
+	int		j;
+	int		neighbors;
+
+	neighbors = 0;
+	i = 0;
+	while (t[i])
+	{
+		j = 1;
+		while (j < 4 && i < 4)
+		{
+			if (t[i][j] == '#' && t[i][j - 1] == '#')
+				neighbors += 2;
+			j++;
+		}
+		i++;
+	}
+	return (neighbors);
+}
+
 unsigned int	checkit(int fd, char **tetra)
 {
 	size_t			nline;
 	unsigned int	err_num;
 	int				ret;
+	int				neighbors;
 	size_t			pounds;
 
 	if (fd < 3)
@@ -25,17 +48,17 @@ unsigned int	checkit(int fd, char **tetra)
 	pounds = 0;
 	while (++nline < 6)
 	{
-		if ((ret = get_next_line(fd, &tetra[nline - 1])) < 0)
+		if ((ret = get_next_line(fd, &tetra[nline - 1])) <= 0)
 			break ;
 		if ((err_num = check_next_line(tetra[nline - 1], nline, &pounds)) > 0)
 			return (err_num);
-		if (!ret)
-			break ;
 	}
 	if (ret == -1)
 		return (4);
 	if (pounds != 4)
 		return (3);
+	if ((neighbors = validit(tetra)) >= 6)
+		return (7);
 	return (ret == 0 ? -1 : 0);
 }
 
