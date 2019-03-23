@@ -57,38 +57,31 @@ static char		*controlit(t_tetra *tetras)
 	return (chr_ids);
 }
 
-static int		technologic(char ***amap,
-						t_tetra *tetras, size_t sqsz, char *chr_ids)
+static int		technologic(char ***amap, t_tetra *t, size_t sqsz, char *ids)
 {
 	char	**map;
 	size_t	i;
 
-	IF_EXIT(!chr_ids, -1);
-	map = NULL;
-	if (!(*chr_ids))
-	{
-		free(chr_ids);
-		return (0);
-	}
-	i = 0;
-	while (chr_ids[i])
+	IF_EXIT(!ids, -1);
+	if (!(*ids))
+		free(ids);
+	IF_EXIT(!(map = NULL) && !(*ids), 0);
+	i = -1;
+	while (ids[++i])
 	{
 		if (map)
 			freeit(&map, sqsz);
 		IF_EXIT(!(map = mapinit(sqsz, amap)), -1);
-		if (!fitit(&map, takeit(tetras, chr_ids[i]), sqsz))
-		{
-			if (!technologic(&map, tetras, sqsz, ft_strpop(chr_ids, i)))
+		if (!fitit(&map, takeit(t, ids[i]), sqsz))
+			if (!technologic(&map, t, sqsz, ft_strpop(ids, i)))
 			{
-				free(chr_ids);
+				free(ids);
 				freeit(amap, sqsz);
 				*amap = map;
 				return (0);
 			}
-		}
-		i++;
 	}
-	free(chr_ids);
+	free(ids);
 	freeit(&map, sqsz);
 	return (1);
 }
