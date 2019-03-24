@@ -22,26 +22,16 @@ int				validit(char **t)
 	i = 0;
 	while (i < 4)
 	{
-		j = 1;
+		j = 0;
 		while (j < 4)
 		{
-			if (t[i][j] == '#' && t[i][j - 1] == '#')
+			if (t[i][j] == '#' && t[i][j + 1] == '#')
+				neighbors += 2;
+			if (t[i][j] == '#' && t[i + 1][j] == '#')
 				neighbors += 2;
 			j++;
 		}
 		i++;
-	}
-	j = 0;
-	while (j < 4)
-	{
-		i = 1;
-		while (i < 4)
-		{
-			if (t[i][j] == '#' && t[i - 1][j] == '#')
-				neighbors += 2;
-			i++;
-		}
-		j++;
 	}
 	return (neighbors);
 }
