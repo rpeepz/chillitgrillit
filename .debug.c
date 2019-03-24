@@ -40,8 +40,8 @@ int				main(int argc, char **argv)
 		if (ft_error(err_num))
 			return (1);
 	solveit(tet_arr);
-    while (1)
-        err_num = 1;
+	while (1)
+		err_num = 1;
 	return (0);
 }
 
