@@ -20,16 +20,28 @@ int				validit(char **t)
 
 	neighbors = 0;
 	i = 0;
-	while (t[i])
+	while (i < 4)
 	{
 		j = 1;
-		while (j < 4 && i < 4)
+		while (j < 4)
 		{
 			if (t[i][j] == '#' && t[i][j - 1] == '#')
 				neighbors += 2;
 			j++;
 		}
 		i++;
+	}
+	j = 0;
+	while (j < 4)
+	{
+		i = 1;
+		while (i < 4)
+		{
+			if (t[i][j] == '#' && t[i - 1][j] == '#')
+				neighbors += 2;
+			i++;
+		}
+		j++;
 	}
 	return (neighbors);
 }
@@ -57,7 +69,7 @@ unsigned int	checkit(int fd, char **tetra)
 		return (4);
 	if (pounds != 4)
 		return (3);
-	if ((neighbors = validit(tetra)) >= 6)
+	if ((neighbors = validit(tetra)) < 6)
 		return (7);
 	return (ret == 0 ? -1 : 0);
 }
