@@ -60,7 +60,7 @@ static char		*controlit(t_tetra *tetras)
 static int		technologic(char ***amap, t_tetra *t, size_t sqsz, char *ids)
 {
 	char	**map;
-	size_t	i;
+	int		i;
 
 	IF_EXIT(!ids, -1);
 	if (!(*ids))
@@ -73,7 +73,7 @@ static int		technologic(char ***amap, t_tetra *t, size_t sqsz, char *ids)
 			freeit(&map, sqsz);
 		IF_EXIT(!(map = mapinit(sqsz, amap)), -1);
 		if (!fitit(&map, takeit(t, ids[i]), sqsz))
-			if (!technologic(&map, t, sqsz, ft_strpop(ids, i)))
+			if (!technologic(&map, t, sqsz, ft_strpop(ids, (size_t)i)))
 			{
 				free(ids);
 				freeit(amap, sqsz);
