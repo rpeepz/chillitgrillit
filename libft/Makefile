@@ -86,7 +86,7 @@ $(NAME): $(OBJ)
 		ar rcs $(NAME) $(OBJ)
 
 clean:
-		rm $(OBJ)
+		rm -f $(OBJ)
 
 fclean: clean
 		rm -f $(NAME)
