@@ -26,8 +26,9 @@ char	*ft_strpop(char *str, size_t id)
 		i = -1;
 		while (++i < id)
 			popped[i] = str[i];
-		while (++i <= len)
+		while (++i < len)
 			popped[i - 1] = str[i];
+		popped[i] = '\0';
 		return (popped);
 	}
 	return (NULL);
