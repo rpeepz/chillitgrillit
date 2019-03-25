@@ -83,12 +83,15 @@ OBJ		= $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		ar rcs $(NAME) $(OBJ)
+		@ar rcs $(NAME) $(OBJ)
 
 clean:
-		rm -f $(OBJ)
+		@echo "Removing all .o files"
+		@rm -f $(OBJ)
+		@SLEEP .5
 
 fclean: clean
-		rm -f $(NAME)
+		@echo "Removing archive"
+		@rm -f $(NAME)
 
 re: fclean all
