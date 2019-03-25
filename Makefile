@@ -13,6 +13,7 @@
 NAME	= fillit
 CFLAGS	= -Wall -Wextra -Werror
 DIR_H	= .
+LIBDIR	= libft/
 INCL	= -I $(DIR_H) -L libft -lft
 MAIN	= main.c
 DEBUG	= .debug.c
@@ -33,10 +34,12 @@ NC		=\033[0m
 all: $(NAME)
 
 $(NAME):
+		cd $(LIBDIR) && make && make clean
+		@cd ..
 		@echo "Building $(NAME) ..."
 		@gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
 		@SLEEP .5
-		@echo "$(RED)Success!"
+		@echo "$(RED)Success!$(NC)"
 		@SLEEP .5
 		@echo "$(NC)run with $(GREEN)./$(NAME) $(NC)... $(GREEN)input file$(NC)"
 
@@ -49,6 +52,7 @@ fclean: clean
 		@SLEEP .5
 		@rm -rf $(NAME).dSYM
 		@echo "all clean! $(RED)<3$(NC)"
+		@SLEEP .5
 
 re: fclean all
 
