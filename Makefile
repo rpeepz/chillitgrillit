@@ -34,19 +34,23 @@ NC		=\033[0m
 all: $(NAME)
 
 $(NAME):
-		cd $(LIBDIR) && make && make clean
+		@cd $(LIBDIR) && make
 		@cd ..
 		@echo "Building $(NAME) ..."
-		@gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
+		@gcc -g $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
 		@SLEEP .5
 		@echo "$(RED)Success!$(NC)"
 		@SLEEP .5
 		@echo "$(NC)run with $(GREEN)./$(NAME) $(NC)... $(GREEN)input file$(NC)"
 
 clean:
+		@cd $(LIBDIR) && make clean
+		@cd ..
 		@rm -f $(FILES_O)
 
 fclean: clean
+		@cd $(LIBDIR) && make fclean
+		@cd ..
 		@echo "Removing program "
 		@rm -f $(NAME)
 		@SLEEP .5

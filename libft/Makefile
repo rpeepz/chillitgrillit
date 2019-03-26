@@ -86,7 +86,6 @@ $(NAME): $(OBJ)
 		@ar rcs $(NAME) $(OBJ)
 
 clean:
-		@echo "Removing all .o files"
 		@rm -f $(OBJ)
 		@SLEEP .5
 
