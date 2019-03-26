@@ -37,7 +37,7 @@ $(NAME):
 		@cd $(LIBDIR) && make
 		@cd ..
 		@echo "Building $(NAME) ..."
-		@gcc -g $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
+		@gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
 		@SLEEP .5
 		@echo "$(RED)Success!$(NC)"
 		@SLEEP .5
