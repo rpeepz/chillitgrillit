@@ -25,9 +25,9 @@
 
 typedef struct		s_tetra
 {
-	int				*block1;
-	int				*block2;
-	int				*block3;
+	int				block1[2];
+	int				block2[2];
+	int				block3[2];
 	char			letter_id;
 	struct s_tetra	*next;
 }					t_tetra;
