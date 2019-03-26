@@ -12,6 +12,13 @@
 
 #include "fillit.h"
 
+int				loopalpha(int chr, int *err_num)
+{
+	if (chr == 'Z')
+		*err_num = 8;
+	return (chr + 1);
+}
+
 int				main(int argc, char **argv)
 {
 	int		fd;
@@ -26,9 +33,7 @@ int				main(int argc, char **argv)
 	while (!err_num)
 	{
 		err_num = checkit(fd, tetra);
-		if (letter_id == 'Z')
-			letter_id = '`';
-		++letter_id;
+		letter_id = loopalpha(letter_id, &err_num);
 		if (err_num <= 0)
 			if (!(ft_newtetra(tetra, letter_id, &tet_arr)))
 				return (ft_error(5));
@@ -43,7 +48,7 @@ int				main(int argc, char **argv)
 
 unsigned char	ft_error(unsigned int err_num)
 {
-	char	*err_msgs[7];
+	char	*err_msgs[8];
 
 	if (err_num == 6)
 	{
@@ -59,6 +64,7 @@ unsigned char	ft_error(unsigned int err_num)
 	err_msgs[4] = ": malloc error";
 	err_msgs[5] = ": they're after me lucky charms!";
 	err_msgs[6] = ": bad tetramino found";
+	err_msgs[7] = ": Too many tetras";
 	ft_putstr("error");
 	if (ERR_SW)
 		ft_putstr(err_msgs[err_num - 1]);
