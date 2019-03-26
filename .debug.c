@@ -14,6 +14,15 @@
 #undef ERR_SW
 #define ERR_SW 1
 
+int				loopalpha(int chr)
+{
+	if (chr == 'z')
+		return ('A');
+	if (chr == 'Z')
+		return ('a');
+	return (chr + 1);
+}
+
 int				main(int argc, char **argv)
 {
 	int		fd;
@@ -28,9 +37,7 @@ int				main(int argc, char **argv)
 	while (!err_num)
 	{
 		err_num = checkit(fd, tetra);
-		if (letter_id == 'Z')
-			letter_id = '`';
-		++letter_id;
+		letter_id = loopalpha(letter_id);
 		if (err_num <= 0)
 			if (!(ft_newtetra(tetra, letter_id, &tet_arr)))
 				return (ft_error(5));
