@@ -72,20 +72,14 @@ int			fitit(char ***amap, t_tetra *tetra, size_t sqsz)
 	{
 		b[0][0] = (int)(i / sqsz);
 		b[0][1] = (int)(i % sqsz);
-		if (tetra) /* added protection ? */
-		{
-			b[1][0] = b[0][0] + (tetra->block1)[0];
-			b[1][1] = b[0][1] + (tetra->block1)[1];
-			b[2][0] = b[0][0] + (tetra->block2)[0];
-			b[2][1] = b[0][1] + (tetra->block2)[1];
-			b[3][0] = b[0][0] + (tetra->block3)[0];
-			b[3][1] = b[0][1] + (tetra->block3)[1];
-			if (dropit(amap, (int)sqsz, b, tetra->letter_id))
-				return (0);
-		}
-		else
-			ft_putendl("~ERROR FOUND NO TETRA~"); /* anti protection error msg */
-		
+		b[1][0] = b[0][0] + (tetra->block1)[0];
+		b[1][1] = b[0][1] + (tetra->block1)[1];
+		b[2][0] = b[0][0] + (tetra->block2)[0];
+		b[2][1] = b[0][1] + (tetra->block2)[1];
+		b[3][0] = b[0][0] + (tetra->block3)[0];
+		b[3][1] = b[0][1] + (tetra->block3)[1];
+		if (dropit(amap, (int)sqsz, b, tetra->letter_id))
+			return (0);
 	}
 	return (-1);
 }
