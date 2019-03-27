@@ -62,9 +62,10 @@ static int		technologic(char ***amap, t_tetra *t, size_t sqsz, char *ids)
 	char	**map;
 	int		i;
 
-	IF_EXIT(!ids, -1);
+	ft_putendl(ids); /* prints out string of ids as its used  WILL CAUSE LEAKS */
 	if (!(*ids))
 		free(ids);
+	IF_EXIT(!t, 0); /* updated exit case to use less lines */
 	IF_EXIT(!(map = NULL) && !(*ids), 0);
 	i = -1;
 	while (ids[++i])
