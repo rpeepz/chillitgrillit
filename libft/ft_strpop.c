@@ -23,12 +23,12 @@ char	*ft_strpop(char *str, size_t id)
 	{
 		if (!(popped = (char *)malloc(len * sizeof(char))))
 			return (NULL);
+		popped[len - 1] = '\0';
 		i = -1;
 		while (++i < id)
 			popped[i] = str[i];
 		while (++i < len)
 			popped[i - 1] = str[i];
-		popped[i] = '\0';
 		return (popped);
 	}
 	return (NULL);
