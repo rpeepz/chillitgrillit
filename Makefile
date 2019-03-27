@@ -60,6 +60,9 @@ fclean: clean
 
 re: fclean all
 
+change:
+		gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
+
 debug:
 		@echo "$(YELLOW)creating $(NAME) for debug$(NC)"
 		@gcc -g $(CFLAGS) $(DEBUG) $(SRCS) -o $(NAME) $(INCL)
