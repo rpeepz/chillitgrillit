@@ -24,7 +24,7 @@ void	initit(char **tetra, int *err_num, char *letter_id, t_tetra **tet_arr)
 	*tet_arr = NULL;
 }
 
-int			tet_append(t_tetra **head, t_tetra *new)
+int		tet_append(t_tetra **head, t_tetra *new)
 {
 	t_tetra	*etk;
 
