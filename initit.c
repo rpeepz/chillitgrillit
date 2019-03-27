@@ -23,3 +23,19 @@ void	initit(char **tetra, int *err_num, char *letter_id, t_tetra **tet_arr)
 	*letter_id = '@';
 	*tet_arr = NULL;
 }
+
+int			tet_append(t_tetra **head, t_tetra *new)
+{
+	t_tetra	*etk;
+
+	etk = *head;
+	if (!etk)
+		*head = new;
+	else
+	{
+		while (etk->next)
+			etk = etk->next;
+		etk->next = new;
+	}
+	return (0);
+}
