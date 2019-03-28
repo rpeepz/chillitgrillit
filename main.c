@@ -89,7 +89,7 @@ int				main(int argc, char **argv)
 	return (0);
 }
 
-int				printit(char **map, size_t sqsz)
+int				show_dat_map(char **map, size_t sqsz)
 {
 	size_t	i;
 
