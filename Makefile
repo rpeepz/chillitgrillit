@@ -6,7 +6,7 @@
 #    By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/22 16:00:21 by rpapagna          #+#    #+#              #
-#    Updated: 2019/03/22 17:13:05 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/03/27 17:13:05 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,10 @@ INCL	= -I $(DIR_H) -L libft -lft
 MAIN	= main.c
 DEBUG	= .debug.c
 SRCS	= checkit.c \
-		  get_next_line.c \
+		  get_tet_line.c \
 		  tetris.c \
-		  solvit.c \
-		  printit.c \
-		  initit.c
+		  solveit.c \
+		  solveit2.c
 FILES_O	= $(SRCS:%.c=%.o)
 
 #COLOR OUTPUT OPIONS
