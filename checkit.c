@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 22:41:40 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/18 22:41:44 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/27 22:41:44 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int				tet_append(t_tetra **head, t_tetra *new)
 	return (0);
 }
 
-char			**mapinit(size_t sqsz, char ***amap)
+char			**make_map(size_t sqsz, char ***amap)
 {
 	char	**map;
 	size_t	i;
