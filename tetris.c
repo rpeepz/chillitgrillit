@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 23:43:40 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/19 17:53:46 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:53:46 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void		*convertit(t_tetra *tetramino, char **tetra)
 	return (tetramino);
 }
 
-int			ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
+int				ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
 {
 	t_tetra	*tetramino;
 
