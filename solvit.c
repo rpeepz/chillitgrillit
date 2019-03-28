@@ -41,39 +41,40 @@ void			freeit(char ***amap, size_t sqsz)
 
 static char		*controlit(t_tetra *tetras)
 {
-	char	*chr_ids;
+	char	*char_ids;
 	size_t	c;
 
 	c = lenit(tetras) + 1;
-	IF_EXIT(!(chr_ids = (char *)malloc(sizeof(char) * c)), NULL);
+	IF_EXIT(!(char_ids = (char *)malloc(sizeof(char) * c)), NULL);
 	c = 0;
 	while (tetras)
 	{
-		chr_ids[c] = tetras->letter_id;
+		char_ids[c] = tetras->letter_id;
 		tetras = tetras->next;
 		c++;
 	}
-	chr_ids[c] = '\0';
-	return (chr_ids);
+	char_ids[c] = '\0';
+	return (char_ids);
 }
 
 static int		technologic(char ***amap, t_tetra *t, size_t sqsz, char *ids)
 {
 	char	**map;
 	int		i;
+	size_t	fit_count;
 
-	ft_putendl(ids); /* prints out string of ids as its used  WILL CAUSE LEAKS */
-	if (!(*ids))
+	if ((i = -1) && !(*ids))
 		free(ids);
-	IF_EXIT(!t, 0); /* updated exit case to use less lines */
 	IF_EXIT(!(map = NULL) && !(*ids), 0);
-	i = -1;
 	while (ids[++i])
 	{
 		if (map)
 			freeit(&map, sqsz);
 		IF_EXIT(!(map = mapinit(sqsz, amap)), -1);
-		if (!fitit(&map, takeit(t, ids[i]), sqsz))
+		printit(map, sqsz); //remove
+		ft_putchar('\n');   //remove
+		fit_count = 0;
+		if (!fitit(&map, takeit(t, ids[i]), sqsz, fit_count))
 			if (!technologic(&map, t, sqsz, ft_strpop(ids, (size_t)i)))
 			{
 				free(ids);
