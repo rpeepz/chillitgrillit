@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:57:53 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/19 17:55:01 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:55:01 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,15 @@ typedef struct		s_tetra
 	char			letter_id;
 	struct s_tetra	*next;
 }					t_tetra;
-void				initit(char **tetra, int *err_num,
-						char *letter_id, t_tetra **tet_arr);
-unsigned int		checkit(int fd, char **tetra);
-unsigned char		ft_error(unsigned int err_num);
-unsigned int		check_next_line(char *line, size_t nline, size_t *apounds);
-void				*convertit(t_tetra *tetromino, char **tetra);
-int					get_next_line(const int fd, char **line);
-int					ft_afterline(char **s, char **line);
+t_tetra				*find_tetra(t_tetra *tetra_list, char id);
+char				**make_map(size_t sqsz, char ***amap);
 int					ft_newtetra(char **tetra, char letter_id, t_tetra **atet);
 int					tet_append(t_tetra **head, t_tetra *new_tet);
+int					get_tet_line(const int fd, char **line);
+int					show_dat_map(char **map, size_t sqsz);
+int					solveit(t_tetra *tetrominos);
+unsigned int		checkit(int fd, char **tetra);
 
-t_tetra				*takeit(t_tetra *tetra_list, char id);
-char				**mapinit(size_t sqsz, char ***amap);
 int					fitit(char ***amap, t_tetra *tetra, size_t sqsz);
-int					printit(char **map, size_t sqsz);
-int					solveit(t_tetra *tetra_list);
 
 #endif
