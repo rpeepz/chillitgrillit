@@ -32,14 +32,13 @@ typedef struct		s_tetra
 	struct s_tetra	*next;
 }					t_tetra;
 t_tetra				*find_tetra(t_tetra *tetra_list, char id);
-char				**make_map(size_t sqsz, char ***amap);
+char				**make_map(int sqsz, char ***amap);
 int					ft_newtetra(char **tetra, char letter_id, t_tetra **atet);
 int					tet_append(t_tetra **head, t_tetra *new_tet);
 int					get_tet_line(const int fd, char **line);
-int					show_dat_map(char **map, size_t sqsz);
+int					show_dat_map(char **map, int sqsz);
 int					solveit(t_tetra *tetrominos);
 unsigned int		checkit(int fd, char **tetra);
-
-int					fitit(char ***amap, t_tetra *tetra, size_t sqsz);
+int					fitit(char ***amap, t_tetra *tetra, int sqsz, int *imap);
 
 #endif
