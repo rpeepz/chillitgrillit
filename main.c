@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 22:53:26 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/22 18:07:16 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:07:16 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,24 @@ int				main(int argc, char **argv)
 	int		err_num;
 	char	letter_id;
 	char	*tetra[5];
-	t_tetra	*tetraminos;
+	t_tetra	*tetrominos;
 
 	IF_EXIT(argc != 2, ft_error(0));
-	initit(tetra, &err_num, &letter_id, &tetraminos);
+	initit(tetra, &err_num, &letter_id, &tetrominos);
 	fd = open(argv[1], O_RDONLY);
 	while (!err_num)
 	{
 		err_num = checkit(fd, tetra);
 		letter_id = loopalpha(letter_id, &err_num, fd);
 		if (err_num <= 0)
-			if (!(ft_newtetra(tetra, letter_id, &tetraminos)))
+			if (!(ft_newtetra(tetra, letter_id, &tetrominos)))
 				return (ft_error(5));
 	}
 	close(fd);
 	if (err_num != -1)
 		if (ft_error(err_num))
 			return (1);
-	solveit(tetraminos);
+	solveit(tetrominos);
 	return (0);
 }
 
