@@ -12,9 +12,9 @@
 
 #include "fillit.h"
 
-static void		free_map(char ***amap, size_t sqsz)
+static void		free_map(char ***amap, int sqsz)
 {
-	size_t	i;
+	int	i;
 
 	if (*amap)
 	{
@@ -29,9 +29,9 @@ static void		free_map(char ***amap, size_t sqsz)
 	}
 }
 
-static size_t	how_many_tetras(t_tetra *tetras)
+static int		how_many_tetras(t_tetra *tetras)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	while (tetras && ++len)
@@ -42,7 +42,7 @@ static size_t	how_many_tetras(t_tetra *tetras)
 static char		*getstr_ids(t_tetra *tetras)
 {
 	char	*char_ids;
-	size_t	c;
+	int		c;
 
 	c = how_many_tetras(tetras) + 1;
 	IF_EXIT(!(char_ids = (char *)malloc(sizeof(char) * c)), NULL);
@@ -57,27 +57,32 @@ static char		*getstr_ids(t_tetra *tetras)
 	return (char_ids);
 }
 
-static int		logic_loop(char ***amap, t_tetra *t, size_t sqsz, char *ids)
+static int		logic_loop(char ***amap, t_tetra *t, int sqsz, char *ids)
 {
 	char	**map;
 	int		i;
+	int		imap;
 
 	if ((i = -1) && !(*ids))
 		free(ids);
 	IF_EXIT(!(map = NULL) && !(*ids), 0);
 	while (ids[++i])
 	{
-		if (map)
-			free_map(&map, sqsz);
-		IF_EXIT(!(map = make_map(sqsz, amap)), -1);
-		if (!fitit(&map, find_tetra(t, ids[i]), sqsz)) //work around these
-			if (!logic_loop(&map, t, sqsz, ft_strpop(ids, (size_t)i))) //work around these
-			{
-				free(ids);
-				free_map(amap, sqsz);
-				*amap = map;
-				return (0);
-			}
+		imap = -1;
+		while (imap != sqsz * sqsz)
+		{
+			if (map)
+				free_map(&map, sqsz);
+			IF_EXIT(!(map = make_map(sqsz, amap)), -1);
+			if (!fitit(&map, find_tetra(t, ids[i]), sqsz, &imap))
+				if (!logic_loop(&map, t, sqsz, ft_strpop(ids, (int)i)))
+				{
+					free(ids);
+					free_map(amap, sqsz);
+					*amap = map;
+					return (0);
+				}
+		}
 	}
 	free(ids);
 	free_map(&map, sqsz);
@@ -86,8 +91,8 @@ static int		logic_loop(char ***amap, t_tetra *t, size_t sqsz, char *ids)
 
 int				solveit(t_tetra *tetras)
 {
-	size_t	sqsz;
-	size_t	block_count;
+	int		sqsz;
+	int		block_count;
 	char	**map;
 
 	block_count = 4 * how_many_tetras(tetras);

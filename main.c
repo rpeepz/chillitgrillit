@@ -89,9 +89,9 @@ int				main(int argc, char **argv)
 	return (0);
 }
 
-int				show_dat_map(char **map, size_t sqsz)
+int				show_dat_map(char **map, int sqsz)
 {
-	size_t	i;
+	int		i;
 
 	i = -1;
 	while (++i < sqsz)

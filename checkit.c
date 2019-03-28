@@ -103,10 +103,10 @@ int				tet_append(t_tetra **head, t_tetra *new)
 	return (0);
 }
 
-char			**make_map(size_t sqsz, char ***amap)
+char			**make_map(int sqsz, char ***amap)
 {
 	char	**map;
-	size_t	i;
+	int		i;
 
 	IF_EXIT(!(map = (char **)(malloc(sizeof(char *) * sqsz))), NULL);
 	i = -1;

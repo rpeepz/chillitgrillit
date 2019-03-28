@@ -37,30 +37,21 @@ static int	dropit(char ***amap, int sqsz, int b[4][2], char chr)
 	return (0);
 }
 
-t_tetra		*takeit(t_tetra *tetra_list, char id)
+int			fitit(char ***amap, t_tetra *tetra, int sqsz, int *imap)
 {
-	while (tetra_list && tetra_list->letter_id != id)
-		tetra_list = tetra_list->next;
-	return (tetra_list);
-}
+	int			block[4][2];
 
-int			fitit(char ***amap, t_tetra *tetra, size_t sqsz)
-{
-	size_t	i;
-	int		b[4][2];
-
-	i = -1;
-	while (++i < sqsz * sqsz)
+	while (++(*imap) < sqsz * sqsz)
 	{
-		b[0][0] = (int)(i / sqsz);
-		b[0][1] = (int)(i % sqsz);
-		b[1][0] = b[0][0] + (tetra->block1)[0];
-		b[1][1] = b[0][1] + (tetra->block1)[1];
-		b[2][0] = b[0][0] + (tetra->block2)[0];
-		b[2][1] = b[0][1] + (tetra->block2)[1];
-		b[3][0] = b[0][0] + (tetra->block3)[0];
-		b[3][1] = b[0][1] + (tetra->block3)[1];
-		if (dropit(amap, (int)sqsz, b, tetra->letter_id))
+		block[0][0] = *imap / sqsz;
+		block[0][1] = *imap % sqsz;
+		block[1][0] = block[0][0] + (tetra->block1)[0];
+		block[1][1] = block[0][1] + (tetra->block1)[1];
+		block[2][0] = block[0][0] + (tetra->block2)[0];
+		block[2][1] = block[0][1] + (tetra->block2)[1];
+		block[3][0] = block[0][0] + (tetra->block3)[0];
+		block[3][1] = block[0][1] + (tetra->block3)[1];
+		if (dropit(amap, (int)sqsz, block, tetra->letter_id))
 			return (0);
 	}
 	return (-1);
