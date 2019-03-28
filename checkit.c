@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-int				validit(char **t)
+static int		neighborhood_watch(char **the_hood)
 {
 	int		i;
 	int		j;
@@ -25,9 +25,9 @@ int				validit(char **t)
 		j = 0;
 		while (j < 4)
 		{
-			if (t[i][j] == '#' && t[i][j + 1] == '#')
+			if (the_hood[i][j] == '#' && the_hood[i][j + 1] == '#')
 				neighbors += 2;
-			if (t[i][j] == '#' && t[i + 1][j] == '#')
+			if (the_hood[i][j] == '#' && the_hood[i + 1][j] == '#')
 				neighbors += 2;
 			j++;
 		}
@@ -36,35 +36,7 @@ int				validit(char **t)
 	return (neighbors);
 }
 
-unsigned int	checkit(int fd, char **tetra)
-{
-	size_t			nline;
-	unsigned int	err_num;
-	int				ret;
-	int				neighbors;
-	size_t			pounds;
-
-	if (fd < 3)
-		return (2);
-	nline = 0;
-	pounds = 0;
-	while (++nline < 6)
-	{
-		if ((ret = get_next_line(fd, &tetra[nline - 1])) <= 0)
-			break ;
-		if ((err_num = check_next_line(tetra[nline - 1], nline, &pounds)) > 0)
-			return (err_num);
-	}
-	if (ret == -1)
-		return (4);
-	if (pounds != 4)
-		return (3);
-	if ((neighbors = validit(tetra)) < 6)
-		return (7);
-	return (ret == 0 ? -1 : 0);
-}
-
-unsigned int	check_next_line(char *line, size_t nline, size_t *apounds)
+unsigned int	tet_next_line(char *line, size_t nline, size_t *apounds)
 {
 	size_t	i;
 	size_t	len;
@@ -73,16 +45,78 @@ unsigned int	check_next_line(char *line, size_t nline, size_t *apounds)
 	{
 		if (nline == 5 && len == 0)
 			return (0);
-		return (1);
+		return (3);
 	}
 	i = 0;
 	while (i < len && nline < 5)
 	{
 		if (line[i] == '#')
 			(*apounds)++;
-		else if (line[i] != '.')
-			return (3);
+		else if (line[i] != EMPTY_CHR)
+			return (4);
 		i++;
 	}
 	return (0);
+}
+
+unsigned int	checkit(int fd, char **tetra)
+{
+	size_t			n;
+	size_t			pounds;
+	unsigned int	err_num;
+	int				reet;
+	int				neighbors;
+
+	if (fd < 0)
+		return (2);
+	n = 0;
+	pounds = 0;
+	while (++n < 6)
+	{
+		if ((reet = get_tet_line(fd, &tetra[n - 1])) <= 0)
+			break ;
+		if ((err_num = tet_next_line(tetra[n - 1], n, &pounds)) > 0)
+			return (err_num);
+	}
+	if (reet == -1)
+		return (1);
+	if (pounds != 4)
+		return (4);
+	if ((neighbors = neighborhood_watch(tetra)) < 6)
+		return (6);
+	return (reet == 0 ? -1 : 0);
+}
+
+int				tet_append(t_tetra **head, t_tetra *new)
+{
+	t_tetra	*etk;
+
+	etk = *head;
+	if (!etk)
+		*head = new;
+	else
+	{
+		while (etk->next)
+			etk = etk->next;
+		etk->next = new;
+	}
+	return (0);
+}
+
+char			**mapinit(size_t sqsz, char ***amap)
+{
+	char	**map;
+	size_t	i;
+
+	IF_EXIT(!(map = (char **)(malloc(sizeof(char *) * sqsz))), NULL);
+	i = -1;
+	while (++i < sqsz)
+	{
+		if (*amap)
+			map[i] = ft_strdup((*amap)[i]);
+		else
+			map[i] = ft_strcnew(sqsz, '.');
+		IF_EXIT(!map[i], NULL);
+	}
+	return (map);
 }
