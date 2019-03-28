@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-void		incrementit(int i[2])
+static void		incrementit(int i[2])
 {
 	if (i[1] == 3)
 	{
@@ -23,20 +23,7 @@ void		incrementit(int i[2])
 		(i[1])++;
 }
 
-void		anchorit(int *anchor, int *i)
-{
-	anchor[0] = i[0];
-	anchor[1] = i[1];
-	if (i[1] == 3)
-	{
-		i[1] = 0;
-		(i[0])++;
-	}
-	else
-		(i[1])++;
-}
-
-void		coordinateit(char **tetra, int anc[2], int i[2], t_tetra **t)
+static void		coordinateit(char **tetra, int anc[2], int i[2], t_tetra **t)
 {
 	char	found;
 
@@ -65,7 +52,20 @@ void		coordinateit(char **tetra, int anc[2], int i[2], t_tetra **t)
 	}
 }
 
-void		*convertit(t_tetra *tetramino, char **tetra)
+static void		anchorit(int *anchor, int *i)
+{
+	anchor[0] = i[0];
+	anchor[1] = i[1];
+	if (i[1] == 3)
+	{
+		i[1] = 0;
+		(i[0])++;
+	}
+	else
+		(i[1])++;
+}
+
+static void		*convertit(t_tetra *tetramino, char **tetra)
 {
 	int		i[2];
 	int		anc[2];
