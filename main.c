@@ -12,11 +12,54 @@
 
 #include "fillit.h"
 
-int				loopalpha(int chr, int *err_num)
+static void		initit(char **tetra, int *err_num, \
+						char *letter_id, t_tetra **tet_arr)
+{
+	*err_num = 0;
+	tetra[0] = NULL;
+	tetra[1] = NULL;
+	tetra[2] = NULL;
+	tetra[3] = NULL;
+	tetra[4] = NULL;
+	*letter_id = '@';
+	*tet_arr = NULL;
+}
+
+static int		loopalpha(int chr, int *err_num, int fd)
 {
 	if (chr == 'Z')
+	{
+		close(fd);
 		*err_num = 8;
+	}
 	return (chr + 1);
+}
+
+unsigned char	ft_error(unsigned int err_num)
+{
+	char	*err_msgs[9];
+
+	if (err_num == 0)
+	{
+		ft_putendl("usage: ./fillit ... input file");
+		return (1);
+	}
+	if (!err_num)
+		return (0);
+	err_msgs[0] = ": get_next_line failed";
+	err_msgs[1] = ": invalid file descriptor";
+	err_msgs[2] = ": five line or more tetramino found";
+	err_msgs[3] = ": forbidden char found";
+	err_msgs[4] = ": get_next_line failed";
+	err_msgs[5] = ": bad tetramino found";
+	err_msgs[6] = ": they're after me lucky charms!";
+	err_msgs[7] = ": ";
+	err_msgs[8] = ": Too many tetras";
+	ft_putstr("error");
+	if (ERR_SW)
+		ft_putstr(err_msgs[err_num - 1]);
+	ft_putchar('\n');
+	return (1);
 }
 
 int				main(int argc, char **argv)
@@ -25,49 +68,44 @@ int				main(int argc, char **argv)
 	int		err_num;
 	char	letter_id;
 	char	*tetra[5];
-	t_tetra	*tet_arr;
+	t_tetra	*tetraminos;
 
-	IF_EXIT(argc != 2, ft_error(6));
-	initit(tetra, &err_num, &letter_id, &tet_arr);
+	IF_EXIT(argc != 2, ft_error(0));
+	initit(tetra, &err_num, &letter_id, &tetraminos);
 	fd = open(argv[1], O_RDONLY);
 	while (!err_num)
 	{
 		err_num = checkit(fd, tetra);
-		letter_id = loopalpha(letter_id, &err_num);
+		letter_id = loopalpha(letter_id, &err_num, fd);
 		if (err_num <= 0)
-			if (!(ft_newtetra(tetra, letter_id, &tet_arr)))
+			if (!(ft_newtetra(tetra, letter_id, &tetraminos)))
 				return (ft_error(5));
 	}
 	close(fd);
 	if (err_num != -1)
 		if (ft_error(err_num))
 			return (1);
-	solveit(tet_arr);
+	solveit(tetraminos);
 	return (0);
 }
 
-unsigned char	ft_error(unsigned int err_num)
+int				printit(char **map, size_t sqsz)
 {
-	char	*err_msgs[8];
+	size_t	i;
 
-	if (err_num == 6)
+	i = -1;
+	while (++i < sqsz)
 	{
-		ft_putendl("usage: ./fillit ... input file");
-		return (1);
+		if (DEBUG)
+		{
+			ft_putchar('[');
+			ft_putnbr(i);
+			ft_putstr("] ");
+		}
+		ft_putstr(map[i]);
+		if (DEBUG)
+			ft_putchar('$');
+		ft_putchar('\n');
 	}
-	if (!err_num)
-		return (0);
-	err_msgs[0] = "";
-	err_msgs[1] = ": invalid file descriptor";
-	err_msgs[2] = ": invalid input format";
-	err_msgs[3] = ": get_next_line failed";
-	err_msgs[4] = ": malloc error";
-	err_msgs[5] = ": they're after me lucky charms!";
-	err_msgs[6] = ": bad tetramino found";
-	err_msgs[7] = ": Too many tetras";
-	ft_putstr("error");
-	if (ERR_SW)
-		ft_putstr(err_msgs[err_num - 1]);
-	ft_putchar('\n');
-	return (1);
+	return (0);
 }
