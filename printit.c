@@ -30,7 +30,22 @@ char		**mapinit(size_t sqsz, char ***amap)
 	return (map);
 }
 
-static int	dropit(char ***amap, int sqsz, int b[4][2], char chr)
+static int	dropit(char ***amap, int b[4][2], char chr, size_t fit_count)
+{
+	char	**map;
+
+	map = *amap;
+	if (!fit_count)
+	{
+		map[b[0][0]][b[0][1]] = chr;
+		map[b[1][0]][b[1][1]] = chr;
+		map[b[2][0]][b[2][1]] = chr;
+		map[b[3][0]][b[3][1]] = chr;
+		return (1);
+	}
+	return (0);
+}
+static int	hoverit(char ***amap, int sqsz, int b[4][2])
 {
 	char	**map;
 
@@ -45,13 +60,7 @@ static int	dropit(char ***amap, int sqsz, int b[4][2], char chr)
 		map[b[1][0]][b[1][1]] == EMPTY_CHR && \
 		map[b[2][0]][b[2][1]] == EMPTY_CHR && \
 		map[b[3][0]][b[3][1]] == EMPTY_CHR)
-	{
-		map[b[0][0]][b[0][1]] = chr;
-		map[b[1][0]][b[1][1]] = chr;
-		map[b[2][0]][b[2][1]] = chr;
-		map[b[3][0]][b[3][1]] = chr;
 		return (1);
-	}
 	return (0);
 }
 
@@ -62,7 +71,7 @@ t_tetra		*takeit(t_tetra *tetra_list, char id)
 	return (tetra_list);
 }
 
-int			fitit(char ***amap, t_tetra *tetra, size_t sqsz)
+int			fitit(char ***amap, t_tetra *tetra, size_t sqsz, size_t fit_count)
 {
 	size_t	i;
 	int		b[4][2];
@@ -78,8 +87,9 @@ int			fitit(char ***amap, t_tetra *tetra, size_t sqsz)
 		b[2][1] = b[0][1] + (tetra->block2)[1];
 		b[3][0] = b[0][0] + (tetra->block3)[0];
 		b[3][1] = b[0][1] + (tetra->block3)[1];
-		if (dropit(amap, (int)sqsz, b, tetra->letter_id))
-			return (0);
+		if (hoverit(amap, (int)sqsz, b))
+			if (dropit(amap, b, tetra->letter_id, &fit_count))
+				return (0);
 	}
 	return (-1);
 }
