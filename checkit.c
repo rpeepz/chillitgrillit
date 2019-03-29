@@ -27,7 +27,7 @@ static int		neighborhood_watch(char **the_hood)
 		{
 			if (the_hood[i][j] == '#' && the_hood[i][j + 1] == '#')
 				neighbors += 2;
-			if (the_hood[i][j] == '#' && the_hood[i + 1][j] == '#')
+			if (i < 3 && (the_hood[i][j] == '#' && the_hood[i + 1][j] == '#'))
 				neighbors += 2;
 			j++;
 		}
