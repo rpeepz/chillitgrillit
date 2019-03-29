@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:57:53 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/27 17:55:01 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:02:01 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int					show_dat_map(char **map, int sqsz);
 int					solveit(t_tetra *tetrominos);
 unsigned int		checkit(int fd, char **tetra);
 int					fitit(char ***amap, t_tetra *tetra, int sqsz, int *imap);
+void				free_tetras(t_tetra *tetra);
 
 #endif
