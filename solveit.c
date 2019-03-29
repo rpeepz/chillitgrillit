@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   solveit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jmbomeyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/27 18:12:39 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/27 18:12:40 by rpapagna         ###   ########.fr       */
+/*   Created: 2019/03/19 16:20:69 by jmbomeyo          #+#    #+#             */
+/*   Updated: 2019/03/28 19:12:40 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void		free_map(char ***amap, int sqsz)
+static int		free_map(char ***amap, int sqsz)
 {
 	int	i;
 
@@ -27,6 +27,7 @@ static void		free_map(char ***amap, int sqsz)
 		free(*amap);
 		*amap = NULL;
 	}
+	return (1);
 }
 
 static int		how_many_tetras(t_tetra *tetras)
@@ -59,31 +60,28 @@ static char		*getstr_ids(t_tetra *tetras)
 
 static int		logic_loop(char ***amap, t_tetra *t, int sqsz, char *ids)
 {
-	char	**map;
-	int		i;
-	int		imap;
+	char		**map;
+	int			i;
+	int			imap;
+	static int	calls;
 
-	if ((i = -1) && !(*ids))
+	if (!(map = NULL) && ++calls && !(*amap))
+		calls = 0;
+	if (!(*ids))
 		free(ids);
-	IF_EXIT(!(map = NULL) && !(*ids), 0);
-	while (ids[++i])
-	{
-		imap = -1;
-		while (imap != sqsz * sqsz)
+	IF_EXIT(((i = -1) && !(*ids)), 0);
+	while (ids[++i] && (imap = -1) && !(calls > 9000))
+		while ((imap != sqsz * sqsz) && !(calls > 9000))
 		{
-			if (map)
-				free_map(&map, sqsz);
-			IF_EXIT(!(map = make_map(sqsz, amap)), -1);
+			IF_EXIT((free_map(&map, sqsz) && !(map = make_map(sqsz, amap))), \
+																			-1);
 			if (!fitit(&map, find_tetra(t, ids[i]), sqsz, &imap))
 				if (!logic_loop(&map, t, sqsz, ft_strpop(ids, (int)i)))
 				{
 					free(ids);
-					free_map(amap, sqsz);
-					*amap = map;
-					return (0);
+					IF_EXIT((free_map(amap, sqsz) && (*amap = map)), 0);
 				}
 		}
-	}
 	free(ids);
 	free_map(&map, sqsz);
 	return (1);
