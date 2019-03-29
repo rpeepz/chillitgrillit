@@ -13,7 +13,6 @@
 NAME	= fillit
 CFLAGS	= -Wall -Wextra -Werror
 DIR_H	= .
-LIBDIR	= libft/
 INCL	= -I $(DIR_H) -L libft -lft
 MAIN	= main.c
 DEBUG	= .debug.c
@@ -24,6 +23,12 @@ SRCS	= checkit.c \
 		  solveit2.c
 FILES_O	= $(SRCS:%.c=%.o)
 
+#LIBFT OPTIONS
+LIBDIR	= libft/
+MAKELIB	= @cd $(LIBDIR) && make && cd ..
+CLNLIB	= @cd $(LIBDIR) && make clean && cd ..
+FCLNLIB	= @cd $(LIBDIR) && make fclean && cd ..
+
 #COLOR OUTPUT OPIONS
 RED		=\033[0;31m
 GREEN	=\033[0;32m
@@ -33,8 +38,7 @@ NC		=\033[0m
 all: $(NAME)
 
 $(NAME):
-		@cd $(LIBDIR) && make
-		@cd ..
+		$(MAKELIB)
 		@echo "Building $(NAME) ..."
 		@gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
 		@SLEEP .5
@@ -43,13 +47,11 @@ $(NAME):
 		@echo "$(NC)run with $(GREEN)./$(NAME) $(NC)... $(GREEN)input file$(NC)"
 
 clean:
-		@cd $(LIBDIR) && make clean
-		@cd ..
+		$(CLNLIB)
 		@rm -f $(FILES_O)
 
 fclean: clean
-		@cd $(LIBDIR) && make fclean
-		@cd ..
+		$(FCLNLIB)
 		@echo "Removing program "
 		@rm -f $(NAME)
 		@SLEEP .5
@@ -57,7 +59,7 @@ fclean: clean
 		@echo "all clean! $(RED)<3$(NC)"
 		@SLEEP .5
 
-re: fclean all
+re:		fclean all
 
 change:
 		gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
