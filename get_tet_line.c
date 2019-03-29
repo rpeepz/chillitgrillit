@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:10:19 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/27 16:42:52 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:02:52 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,16 @@ t_tetra		*find_tetra(t_tetra *tetra_list, char id)
 	while (tetra_list && tetra_list->letter_id != id)
 		tetra_list = tetra_list->next;
 	return (tetra_list);
+}
+
+void		free_tetras(t_tetra *tetra)
+{
+	t_tetra	*next;
+
+	while (tetra)
+	{
+		next = tetra->next;
+		free(tetra);
+		tetra = next;
+	}
 }
