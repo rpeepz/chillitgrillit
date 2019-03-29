@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 22:53:26 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/27 18:07:16 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:07:16 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int				main(int argc, char **argv)
 		if (ft_error(err_num))
 			return (1);
 	solveit(tetrominos);
+	free_tetras(tetrominos);
 	return (0);
 }
 
