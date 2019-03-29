@@ -15,6 +15,7 @@
 #define ERR_SW 1
 #undef DEBUG
 #define DEBUG 1
+
 static void		initit(char **tetra, int *err_num, \
 						char *letter_id, t_tetra **tet_arr)
 {
@@ -88,14 +89,12 @@ int				main(int argc, char **argv)
 		if (ft_error(err_num))
 			return (1);
 	solveit(tetrominos);
-//	while (1)
-//		err_num = 1;
-	return (0);
+	IF_EXIT(system("leaks fillit"), 0);
 }
 
-int				show_dat_map(char **map, size_t sqsz)
+int				show_dat_map(char **map, int sqsz)
 {
-	size_t	i;
+	int		i;
 
 	i = -1;
 	while (++i < sqsz)
