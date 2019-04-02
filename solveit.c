@@ -58,7 +58,7 @@ static char		*getstr_ids(t_tetra *tetras)
 	return (char_ids);
 }
 
-static int		logic_loop(char ***amap, t_tetra *t, int sqsz, char *ids)
+static int		logic_loop(char ***amap, t_tetra *t, int sz, char *ids)
 {
 	char		**map;
 	int			i;
@@ -67,24 +67,24 @@ static int		logic_loop(char ***amap, t_tetra *t, int sqsz, char *ids)
 
 	if (!(map = NULL) && ++calls && !(*amap))
 		calls = 0;
-	if (!(*ids))
+	if ((i = -1) && !(*ids))
+	{
 		free(ids);
-	IF_EXIT(((i = -1) && !(*ids)), 0);
+		return (0);
+	}
 	while (ids[++i] && (imap = -1) && !(calls > 9000))
-		while ((imap != sqsz * sqsz) && !(calls > 9000))
+		while ((imap != sz * sz) && !(calls > 9000))
 		{
-			IF_EXIT((free_map(&map, sqsz) && !(map = make_map(sqsz, amap))), \
-																			-1);
-			if (!fitit(&map, find_tetra(t, ids[i]), sqsz, &imap))
-				if (!logic_loop(&map, t, sqsz, ft_strpop(ids, (int)i)))
+			IF_EXIT((free_map(&map, sz) && !(map = make_map(sz, amap))), -1);
+			if (!fitit(&map, find_tetra(t, ids[i]), sz, &imap))
+				if (!logic_loop(&map, t, sz, ft_strpop(ids, (int)i)))
 				{
 					free(ids);
-					IF_EXIT((free_map(amap, sqsz) && (*amap = map)), 0);
+					IF_EXIT((free_map(amap, sz) && (*amap = map)), 0);
 				}
 		}
 	free(ids);
-	free_map(&map, sqsz);
-	return (1);
+	return ((free_map(&map, sz) ? 1 : -1));
 }
 
 int				solveit(t_tetra *tetras)
