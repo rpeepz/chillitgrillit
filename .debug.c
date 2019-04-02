@@ -16,7 +16,7 @@
 #undef DEBUG
 #define DEBUG 1
 
-static void		Dinitit(char **tetra, int *err_num, \
+static void		initit(char **tetra, int *err_num, \
 						char *letter_id, t_tetra **tet_arr)
 {
 	*err_num = 0;
@@ -29,7 +29,7 @@ static void		Dinitit(char **tetra, int *err_num, \
 	*tet_arr = NULL;
 }
 
-static int		Dloopalpha(int chr)
+static int		loopalpha(int chr)
 {
 	if (chr == 'z')
 		return ('A');
@@ -38,7 +38,7 @@ static int		Dloopalpha(int chr)
 	return (chr + 1);
 }
 
-unsigned char	Dft_error(unsigned int err_num)
+unsigned char	ft_error(unsigned int err_num)
 {
 	char	*err_msgs[9];
 
@@ -65,7 +65,7 @@ unsigned char	Dft_error(unsigned int err_num)
 	return (1);
 }
 
-int				Dmain(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	int		fd;
 	int		err_num;
@@ -92,7 +92,7 @@ int				Dmain(int argc, char **argv)
 	IF_EXIT(system("leaks fillit"), 0);
 }
 
-int				Dshow_dat_map(char **map, int sqsz)
+int				show_dat_map(char **map, int sqsz)
 {
 	int		i;
 
