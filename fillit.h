@@ -38,7 +38,7 @@ int					tet_append(t_tetra **head, t_tetra *new_tet);
 int					get_tet_line(const int fd, char **line);
 int					show_dat_map(char **map, int sqsz);
 int					solveit(t_tetra *tetrominos);
-unsigned int		checkit(int fd, char **tetra);
+int					checkit(int fd, char **tetra);
 int					fitit(char ***amap, t_tetra *tetra, int sqsz, int *imap);
 void				free_tetras(t_tetra *tetra);
 
