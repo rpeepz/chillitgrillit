@@ -59,7 +59,7 @@ unsigned int	tet_next_line(char *line, size_t nline, size_t *apounds)
 	return (0);
 }
 
-unsigned int	checkit(int fd, char **tetra)
+int				checkit(int fd, char **tetra)
 {
 	size_t			n;
 	size_t			pounds;
