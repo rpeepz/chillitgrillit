@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 00:13:27 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/02/20 00:13:27 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/04/05 12:33:48 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strnew(size_t size)
 {
 	char	*str;
-
+	
 	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
 		return (NULL);
 	ft_bzero(str, size + 1);
