@@ -12,13 +12,13 @@
 
 #ifndef FILLIT_H
 # define FILLIT_H
-# define BUFF_SIZE 21
+
 # define IF_EXIT(X, Y) if(X) {return (Y);}
 # define ERR_SW 0
 # define DEBUG 0
 # define EMPTY_CHR '.'
 
-# include "libft/includes/libft.h"
+# include "./libft/includes/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -31,15 +31,17 @@ typedef struct		s_tetra
 	char			letter_id;
 	struct s_tetra	*next;
 }					t_tetra;
-t_tetra				*find_tetra(t_tetra *tetra_list, char id);
-char				**make_map(int sqsz, char ***amap);
-int					ft_newtetra(char **tetra, char letter_id, t_tetra **atet);
-int					tet_append(t_tetra **head, t_tetra *new_tet);
-int					get_tet_line(const int fd, char **line);
-int					show_dat_map(char **map, int sqsz);
-int					solveit(t_tetra *tetrominos);
+unsigned char		ft_error(unsigned int err_num);
 int					checkit(int fd, char **tetra);
+int					combineit(char **tetra, char letter_id, t_tetra **atet);
+int					countit(t_tetra *tetras);
+void				incrementit(int i[2]);
+
+int					solveit(t_tetra *tetrominos);
 int					fitit(char ***amap, t_tetra *tetra, int sqsz, int *imap);
-void				free_tetras(t_tetra *tetra);
+char				**map_makeit(int sqsz, char ***amap);
+int					map_freeit(char ***amap, int sqsz);
+void				tetra_freeit(t_tetra *tetra);
+int					printit(char **map, int sqsz);
 
 #endif
