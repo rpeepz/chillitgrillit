@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:57:53 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/28 19:02:01 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:14:44 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define DEBUG 0
 # define EMPTY_CHR '.'
 
+# include "./libft/includes/get_next_line.h"
 # include "./libft/includes/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
@@ -36,10 +37,11 @@ int					checkit(int fd, char **tetra);
 int					combineit(char **tetra, char letter_id, t_tetra **atet);
 int					countit(t_tetra *tetras);
 void				incrementit(int i[2]);
+void				line_freeit(char **line, int len);
 
 int					solveit(t_tetra *tetrominos);
 int					fitit(char ***amap, t_tetra *tetra, int sqsz, int *imap);
-char				**map_makeit(int sqsz, char ***amap);
+char				**makeit(int sqsz, char ***amap);
 int					map_freeit(char ***amap, int sqsz);
 void				tetra_freeit(t_tetra *tetra);
 int					printit(char **map, int sqsz);
