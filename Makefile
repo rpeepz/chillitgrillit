@@ -12,22 +12,15 @@
 
 NAME	= fillit
 CFLAGS	= -Wall -Wextra -Werror
-DIR_H	= .
-INCL	= -I $(DIR_H) -L libft -lft
-MAIN	= main.c
 DEBUG	= .debug.c
+MAIN	= main.c
 SRCS	= checkit.c \
-		  get_tet_line.c \
-		  tetris.c \
-		  solveit.c \
-		  solveit2.c
+		errors.c \
+		tetris.c \
+		map.c \
+		math.c \
+		solveit.c
 FILES_O	= $(SRCS:%.c=%.o)
-
-#LIBFT OPTIONS
-LIBDIR	= libft/
-MAKELIB	= @cd $(LIBDIR) && make && cd ..
-CLNLIB	= @cd $(LIBDIR) && make clean && cd ..
-FCLNLIB	= @cd $(LIBDIR) && make fclean && cd ..
 
 #COLOR OUTPUT OPIONS
 RED		=\033[0;31m
@@ -38,21 +31,24 @@ NC		=\033[0m
 all: $(NAME)
 
 $(NAME):
-		$(MAKELIB)
+		@make -C libft
 		@echo "Building $(NAME) ..."
-		@gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
-		@SLEEP .5
+		@gcc $(CFLAGS) -c $(MAIN) $(SRCS) -I fillit.h
+		@gcc $(CFLAGS) -o $(NAME) $(FILES_O) -L ./libft/ -lft
 		@echo "$(RED)Success!$(NC)"
 		@SLEEP .5
 		@echo "$(NC)run with $(GREEN)./$(NAME) $(NC)... $(GREEN)input file$(NC)"
 
 clean:
-		$(CLNLIB)
+		@make -C libft clean
 		@rm -f $(FILES_O)
+		@echo "objects removed"
+		@SLEEP .5
 
 fclean: clean
-		$(FCLNLIB)
-		@echo "Removing program "
+		@make -C libft fclean
+		@SLEEP .5
+		@echo "$(GREEN)Removing program$(NC)"
 		@rm -f $(NAME)
 		@SLEEP .5
 		@rm -rf $(NAME).dSYM
@@ -61,9 +57,7 @@ fclean: clean
 
 re:		fclean all
 
-change:
-		gcc $(CFLAGS) $(MAIN) $(SRCS) -o $(NAME) $(INCL)
-
 debug:
 		@echo "$(YELLOW)creating $(NAME) for debug$(NC)"
-		@gcc -g $(CFLAGS) $(DEBUG) $(SRCS) -o $(NAME) $(INCL)
+		@gcc $(CFLAGS) -c $(DEBUG) $(SRCS) -I includes/fillit.h
+		@gcc $(CFLAGS) -o $(NAME) $(FILES_O) -L ./libft/ -lft
