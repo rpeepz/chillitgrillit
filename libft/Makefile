@@ -6,7 +6,7 @@
 #    By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 21:22:38 by rpapagna          #+#    #+#              #
-#    Updated: 2019/04/04 17:01:42 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/04/05 01:50:33 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,8 @@ SRCS	= ft_atoi.c \
 			ft_strsub.c \
 			ft_strtrim.c \
 			ft_tolower.c \
-			ft_toupper.c
+			ft_toupper.c \
+			get_next_line.c
 OBJ		= $(patsubst %.c,%.o,$(SRCS))
 
 all: $(NAME)
