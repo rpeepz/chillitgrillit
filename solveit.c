@@ -12,40 +12,12 @@
 
 #include "fillit.h"
 
-static int		free_map(char ***amap, int sqsz)
-{
-	int	i;
-
-	if (*amap)
-	{
-		i = 0;
-		while (i < sqsz)
-		{
-			free((*amap)[i]);
-			i++;
-		}
-		free(*amap);
-		*amap = NULL;
-	}
-	return (1);
-}
-
-static int		how_many_tetras(t_tetra *tetras)
-{
-	int	len;
-
-	len = 0;
-	while (tetras && ++len)
-		tetras = tetras->next;
-	return (len);
-}
-
-static char		*getstr_ids(t_tetra *tetras)
+static char		*id_stringit(t_tetra *tetras)
 {
 	char	*char_ids;
 	int		c;
 
-	c = how_many_tetras(tetras) + 1;
+	c = countit(tetras) + 1;
 	IF_EXIT(!(char_ids = (char *)malloc(sizeof(char) * c)), NULL);
 	c = 0;
 	while (tetras)
@@ -58,7 +30,26 @@ static char		*getstr_ids(t_tetra *tetras)
 	return (char_ids);
 }
 
-static int		logic_loop(char ***amap, t_tetra *t, int sz, char *ids)
+static t_tetra	*findit(t_tetra *tetra_list, char id)
+{
+	while (tetra_list && tetra_list->letter_id != id)
+		tetra_list = tetra_list->next;
+	return (tetra_list);
+}
+
+void			tetra_freeit(t_tetra *tetra)
+{
+	t_tetra	*next;
+
+	while (tetra)
+	{
+		next = tetra->next;
+		free(tetra);
+		tetra = next;
+	}
+}
+
+static int		technologic(char ***amap, t_tetra *t, int sz, char *ids)
 {
 	char		**map;
 	int			i;
@@ -75,16 +66,16 @@ static int		logic_loop(char ***amap, t_tetra *t, int sz, char *ids)
 	while (ids[++i] && (imap = -1) && !(calls > 9000))
 		while ((imap != sz * sz) && !(calls > 9000))
 		{
-			IF_EXIT((free_map(&map, sz) && !(map = make_map(sz, amap))), -1);
-			if (!fitit(&map, find_tetra(t, ids[i]), sz, &imap))
-				if (!logic_loop(&map, t, sz, ft_strpop(ids, (int)i)))
+			IF_EXIT((map_freeit(&map, sz) && !(map = map_makeit(sz, amap))), -1); //iyfbhysefyisef
+			if (!fitit(&map, findit(t, ids[i]), sz, &imap))
+				if (!technologic(&map, t, sz, ft_strpop(ids, (int)i)))
 				{
 					free(ids);
-					IF_EXIT((free_map(amap, sz) && (*amap = map)), 0);
+					IF_EXIT((map_freeit(amap, sz) && (*amap = map)), 0);
 				}
 		}
 	free(ids);
-	return ((free_map(&map, sz) ? 1 : -1));
+	return ((map_freeit(&map, sz) ? 1 : -1));
 }
 
 int				solveit(t_tetra *tetras)
@@ -93,14 +84,14 @@ int				solveit(t_tetra *tetras)
 	int		block_count;
 	char	**map;
 
-	block_count = 4 * how_many_tetras(tetras);
+	block_count = 4 * countit(tetras);
 	sqsz = 2;
 	while (sqsz * sqsz < block_count)
 		sqsz++;
 	map = NULL;
-	while (logic_loop(&map, tetras, sqsz, getstr_ids(tetras)))
+	while (technologic(&map, tetras, sqsz, id_stringit(tetras)))
 		sqsz++;
-	show_dat_map(map, sqsz);
-	free_map(&map, sqsz);
+	printit(map, sqsz);
+	map_freeit(&map, sqsz);
 	return (0);
 }

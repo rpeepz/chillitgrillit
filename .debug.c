@@ -29,7 +29,7 @@ static void		initit(char **tetra, int *err_num, \
 	*tet_arr = NULL;
 }
 
-static int		loopalpha(int chr)
+static int		loopit(int chr)
 {
 	if (chr == 'z')
 		return ('A');
@@ -79,9 +79,9 @@ int				main(int argc, char **argv)
 	while (!err_num)
 	{
 		err_num = checkit(fd, tetra);
-		letter_id = loopalpha(letter_id);
+		letter_id = loopit(letter_id);
 		if (err_num <= 0)
-			if (!(ft_newtetra(tetra, letter_id, &tetrominos)))
+			if (!(combineit(tetra, letter_id, &tetrominos)))
 				return (ft_error(5));
 	}
 	close(fd);
@@ -92,7 +92,7 @@ int				main(int argc, char **argv)
 	IF_EXIT(system("leaks fillit"), 0);
 }
 
-int				show_dat_map(char **map, int sqsz)
+int				printit(char **map, int sqsz)
 {
 	int		i;
 

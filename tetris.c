@@ -12,17 +12,6 @@
 
 #include "fillit.h"
 
-static void		incrementit(int i[2])
-{
-	if (i[1] == 3)
-	{
-		i[1] = 0;
-		(i[0])++;
-	}
-	else
-		(i[1])++;
-}
-
 static void		coordinateit(char **tetra, int anc[2], int i[2], t_tetra **t)
 {
 	char	found;
@@ -89,7 +78,23 @@ static void		*convertit(t_tetra *tetramino, char **tetra)
 	return (tetramino);
 }
 
-int				ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
+static int		appendit(t_tetra **head, t_tetra *new)
+{
+	t_tetra	*etk;
+
+	etk = *head;
+	if (!etk)
+		*head = new;
+	else
+	{
+		while (etk->next)
+			etk = etk->next;
+		etk->next = new;
+	}
+	return (0);
+}
+
+int				combineit(char **tetra, char letter_id, t_tetra **atet)
 {
 	t_tetra	*tetramino;
 
@@ -97,6 +102,6 @@ int				ft_newtetra(char **tetra, char letter_id, t_tetra **atet)
 	convertit(tetramino, tetra);
 	tetramino->letter_id = letter_id;
 	tetramino->next = NULL;
-	tet_append(atet, tetramino);
+	appendit(atet, tetramino);
 	return (1);
 }

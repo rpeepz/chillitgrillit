@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-static int		neighborhood_watch(char **the_hood)
+static int		watchit(char **the_hood)
 {
 	int		i;
 	int		j;
@@ -36,7 +36,7 @@ static int		neighborhood_watch(char **the_hood)
 	return (neighbors);
 }
 
-unsigned int	tet_next_line(char *line, size_t nline, size_t *apounds)
+unsigned int	validateit(char *line, size_t nline, size_t *apounds)
 {
 	size_t	i;
 	size_t	len;
@@ -73,50 +73,16 @@ int				checkit(int fd, char **tetra)
 	pounds = 0;
 	while (++n < 6)
 	{
-		if ((reet = get_tet_line(fd, &tetra[n - 1])) <= 0)
+		if ((reet = get_next_line(fd, &tetra[n - 1])) <= 0)
 			break ;
-		if ((err_num = tet_next_line(tetra[n - 1], n, &pounds)) > 0)
+		if ((err_num = validateit(tetra[n - 1], n, &pounds)) > 0)
 			return (err_num);
 	}
 	if (reet == -1)
 		return (1);
 	if (pounds != 4)
 		return (4);
-	if ((neighbors = neighborhood_watch(tetra)) < 6)
+	if ((neighbors = watchit(tetra)) < 6)
 		return (6);
 	return (reet == 0 ? -1 : 0);
-}
-
-int				tet_append(t_tetra **head, t_tetra *new)
-{
-	t_tetra	*etk;
-
-	etk = *head;
-	if (!etk)
-		*head = new;
-	else
-	{
-		while (etk->next)
-			etk = etk->next;
-		etk->next = new;
-	}
-	return (0);
-}
-
-char			**make_map(int sqsz, char ***amap)
-{
-	char	**map;
-	int		i;
-
-	IF_EXIT(!(map = (char **)(malloc(sizeof(char *) * sqsz))), NULL);
-	i = -1;
-	while (++i < sqsz)
-	{
-		if (*amap)
-			map[i] = ft_strdup((*amap)[i]);
-		else
-			map[i] = ft_strcnew(sqsz, '.');
-		IF_EXIT(!map[i], NULL);
-	}
-	return (map);
 }

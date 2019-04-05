@@ -25,7 +25,7 @@ static void		initit(char **tetra, int *err_num, \
 	*tet_arr = NULL;
 }
 
-static int		loopalpha(int chr, int *err_num, int fd)
+static int		loopit(int chr, int *err_num, int fd)
 {
 	if (chr == 'Z')
 	{
@@ -33,33 +33,6 @@ static int		loopalpha(int chr, int *err_num, int fd)
 		*err_num = 8;
 	}
 	return (chr + 1);
-}
-
-unsigned char	ft_error(unsigned int err_num)
-{
-	char	*err_msgs[9];
-
-	if (err_num == 69)
-	{
-		ft_putendl("usage: ./fillit ... <filename>");
-		return (1);
-	}
-	if (!err_num)
-		return (0);
-	err_msgs[0] = ": get_next_line failed";
-	err_msgs[1] = ": invalid file descriptor";
-	err_msgs[2] = ": five line or more tetramino found";
-	err_msgs[3] = ": forbidden char found";
-	err_msgs[4] = ": malloc failed";
-	err_msgs[5] = ": bad tetramino found";
-	err_msgs[6] = ": they're after me lucky charms!";
-	err_msgs[7] = ": ";
-	err_msgs[8] = ": Too many tetras";
-	ft_putstr("error");
-	if (ERR_SW)
-		ft_putstr(err_msgs[err_num - 1]);
-	ft_putchar('\n');
-	return (1);
 }
 
 int				main(int argc, char **argv)
@@ -76,8 +49,8 @@ int				main(int argc, char **argv)
 	while (!err_num)
 	{
 		err_num = checkit(fd, tetra);
-		if ((letter_id = loopalpha(letter_id, &err_num, fd)) && err_num <= 0)
-			if (!(ft_newtetra(tetra, letter_id, &tetrominos)))
+		if ((letter_id = loopit(letter_id, &err_num, fd)) && err_num <= 0)
+			if (!(combineit(tetra, letter_id, &tetrominos)))
 				return (ft_error(5));
 	}
 	close(fd);
@@ -86,27 +59,6 @@ int				main(int argc, char **argv)
 		free(tetra[fd++]);
 	IF_EXIT(((err_num != -1) && ft_error(err_num)), 1);
 	solveit(tetrominos);
-	free_tetras(tetrominos);
-	return (0);
-}
-
-int				show_dat_map(char **map, int sqsz)
-{
-	int		i;
-
-	i = -1;
-	while (++i < sqsz)
-	{
-		if (DEBUG)
-		{
-			ft_putchar('[');
-			ft_putnbr(i);
-			ft_putstr("] ");
-		}
-		ft_putstr(map[i]);
-		if (DEBUG)
-			ft_putchar('$');
-		ft_putchar('\n');
-	}
+	tetra_freeit(tetrominos);
 	return (0);
 }
