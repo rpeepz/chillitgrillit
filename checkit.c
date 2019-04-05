@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 22:41:40 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/03/27 22:41:44 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:17:07 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ static int		watchit(char **the_hood)
 		i++;
 	}
 	return (neighbors);
+}
+
+void			line_freeit(char **tetra, int len)
+{
+	int		nline;
+
+	nline = 0;
+	while (nline < len && tetra[nline])
+		free(tetra[nline++]);
 }
 
 unsigned int	validateit(char *line, size_t nline, size_t *apounds)
@@ -71,6 +80,7 @@ int				checkit(int fd, char **tetra)
 		return (2);
 	n = 0;
 	pounds = 0;
+	line_freeit(tetra, 5);
 	while (++n < 6)
 	{
 		if ((reet = get_next_line(fd, &tetra[n - 1])) <= 0)
