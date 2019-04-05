@@ -6,7 +6,7 @@
 /*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:10:19 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/04/04 23:59:25 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/04/05 15:01:01 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int		get_next_line(const int fd, char **line)
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	if (!i && *str[fd] == 0)
-		return (0);
+	if (!i)
+	{
+		if (!str[fd] ? 1 : !(*str[fd]))
+			return (0);
+	}
 	return (ft_afterline(str, line, fd));
 }
