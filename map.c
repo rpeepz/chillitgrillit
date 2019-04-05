@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-char		**map_makeit(int sqsz, char ***amap)
+char		**makeit(int sqsz, char ***amap)
 {
 	char	**map;
 	int		i;

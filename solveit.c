@@ -6,7 +6,7 @@
 /*   By: jmbomeyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:20:69 by jmbomeyo          #+#    #+#             */
-/*   Updated: 2019/03/28 19:12:40 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/04/05 03:09:37 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ static int		technologic(char ***amap, t_tetra *t, int sz, char *ids)
 		free(ids);
 		return (0);
 	}
-	while (ids[++i] && (imap = -1) && !(calls > 9000))
-		while ((imap != sz * sz) && !(calls > 9000))
+	while (ids[++i] && (imap = -1) && !(calls > 90000))
+		while ((imap != sz * sz) && !(calls > 90000))
 		{
-			IF_EXIT((map_freeit(&map, sz) && !(map = map_makeit(sz, amap))), -1); //iyfbhysefyisef
+			IF_EXIT((map_freeit(&map, sz) && !(map = makeit(sz, amap))), -1);
 			if (!fitit(&map, findit(t, ids[i]), sz, &imap))
 				if (!technologic(&map, t, sz, ft_strpop(ids, (int)i)))
 				{
