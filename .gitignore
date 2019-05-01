@@ -5,8 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
-*.fillit
-*.vscode
+.fillit
+.vscode
+/libft/.DS_Store
 
 # Distribution / packaging
 .Python
