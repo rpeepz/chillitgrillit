@@ -5,7 +5,6 @@ __pycache__/
 
 # C extensions
 *.so
-.fillit
 .vscode
 /libft/.DS_Store
 
